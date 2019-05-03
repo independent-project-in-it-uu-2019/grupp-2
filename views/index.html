@@ -1,0 +1,69 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <title>Dunderhonung</title>
+        <meta charset="utf-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+        <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+        <link rel="stylesheet" href="css/global.css">
+<style>
+/* Senare så klipper vi ut det här till en egen fil */
+:root {
+  --border-height: 70px; 
+}
+.border {
+    width: 100%;
+    height: var(--border-height);
+    box-shadow: 0 0 10px #0003;
+    position: absolute;
+    top: 0;
+    left: 0;
+}
+.border h2,h3 {
+    width: fit-content;
+    line-height: var(--border-height);;
+    display: inline-block;
+    padding: 0 30px;
+}
+.border .leftAlign {
+    position: absolute;
+    left: 0;
+    padding-left: 30px;
+}
+.border .rightAlign {
+    position: absolute;
+    right: 0;
+    padding-right: 30px;
+}
+.border button {
+    border: none;
+    outline: none;
+    cursor: pointer;
+    float: right;
+    height: var(--border-height);;
+    padding: 0 20px;
+}
+.wrapper {
+    width: 100%;
+    max-width: 1000px;
+    margin: auto;
+    position: relative;
+}
+
+
+</style>
+    </head>
+    <body>
+        <div class="border">
+            <div class="wrapper">
+                <div class="leftAlign">
+                    <h2>Uppsala Universitet</h2>
+                </div>
+                <div class="rightAlign">
+                    <h3>Micaela Modin</h3>
+                    <button>Logga ut</button>
+                </div>
+            </div>
+        </div>
+    </body>
+</html>
