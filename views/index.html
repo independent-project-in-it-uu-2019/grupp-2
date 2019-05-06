@@ -9,7 +9,8 @@
 <style>
 /* Senare så klipper vi ut det här till en egen fil */
 :root {
-  --border-height: 70px; 
+  --border-height: 70px;
+  --std-shadow: 0 0 5px #0003;
 }
 .border {
     width: 100%;
@@ -43,14 +44,92 @@
     height: var(--border-height);;
     padding: 0 20px;
 }
+.border button:hover {
+    background: #ddd;
+}
 .wrapper {
     width: 100%;
     max-width: 1000px;
     margin: auto;
     position: relative;
 }
+.searchbox {
+    border-radius: 4px;
+    box-shadow: 0 0 10px #0003;
+    margin-top: 100px;
+    width: 100%;
+    padding: 0 20px;
+}
+.searchboxbox {
+    width: 25%;
+    height: 100%;
+    padding: 20px 25px;
+    display: inline-table;
+    overflow: hidden;
+}
+@media screen and (max-width: 700px) {
+    .searchboxbox {
+        width: 50%;
+    }
+}
+.searchboxbox p {
+    color: #333;
+    margin: 10px 0;
+}
+.searchboxbox input[type=text] {
+    color: #333;
+    padding: 5px 10px;
+    border-radius: 4px;
+    width: 100%;
+    border: #bbb 1px solid;
+    font-size: 0.9em;
+}
+.searchboxbox select {
+    color: #333;
+    width: 100%;
+    font-size: 0.8em;
+}
+.searchboxbox .taggar {
+    border-radius: 4px;
+    color: #333;
+    border: #bbb 1px solid;
+    padding: 5px 10px;
+    display: inline-table;
+    margin: 5px 5px 0 0;
+}
+.searchboxbox .taggar:hover {
+    background: #ddd;
+    cursor: pointer;
+}
+.courses {
+    margin: 50px 0;
+}
+.course {
+    height: 40px;
+    box-shadow: var(--std-shadow);
+}
+td.grey {
+    background: #ddd;
+}
+.kursnamn {
 
+}.period {
 
+}.laesaor {
+
+}.svar {
+
+}.kursvardering {
+
+}.kursrapport {
+
+}.kursomdome {
+
+}.godkand {
+
+}.coursetaggar {
+
+}
 </style>
     </head>
     <body>
@@ -61,9 +140,102 @@
                 </div>
                 <div class="rightAlign">
                     <h3>Micaela Modin</h3>
-                    <button>Logga ut</button>
+                    <button class="loginout">Logga ut</button>
                 </div>
             </div>
+        </div>
+        <div class="wrapper">
+            <div class="searchbox">
+                <div class="searchboxbox">
+                    <p>Sök</p>
+                    <input type="text" placeholder="Sök kurs">
+                    <p>Program</p>
+                    <select>
+                        <option value="alla">Alla</option>
+                        <option value="it">IT</option>
+                        <option value="es">ES</option>
+                        <option value="f">F</option>
+                    </select>
+                </div><div class="searchboxbox">
+                    <p>Taggar</p>
+                        <div style="overflow: auto;
+                        height: 120px;
+                        padding-bottom: 10px">
+                            <span class="taggar">Hemtenta</span>
+                            <span class="taggar">Studium</span>
+                            <span class="taggar">Flipped classroom</span>
+                            <span class="taggar">Hemtenta</span>
+                            <span class="taggar">Studium</span>
+                            <span class="taggar">Flipped classroom</span>
+                        </div>
+                    
+                </div><div class="searchboxbox">
+                    <p>Läsår</p>
+                    <select>
+                        <option value="2019">2019</option>
+                        <option value="2018">2018</option>
+                        <option value="2017">2017</option>
+                        <option value="2016">2016</option>
+                    </select>
+                    <p>Period</p>
+                    <select>
+                        <option value="alla">Alla</option>
+                        <option value="one">1</option>
+                        <option value="two">2</option>
+                        <option value="three">3</option>
+                        <option value="four">4</option>
+                    </select>
+                </div><div class="searchboxbox">
+                    <p>Hej</p>
+                    <input type="checkbox"> Saknar kursrapport
+                    <br><br>
+                    <input type="checkbox"> Saknar kursvärdering
+                </div>
+            </div>
+
+            <div class="courses">
+                <table>
+                    <thead>
+                        <tr>
+                            <td>Kursnamn</td>
+                            <td>Period</td>
+                            <td>Läsår</td>
+                            <td>Svar</td>
+                            <td>Kursvärdering</td>
+                            <td>Kursrapport</td>
+                            <td>Kursomdöme</td>
+                            <td>Godkänd andel</td>
+                            <td>Taggar</td>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr class="course">
+                            <td class="white">Kursnamn</td>
+                            <td class="grey">Period</td>
+                            <td class="white">Läsår</td>
+                            <td class="grey">Svar</td>
+                            <td class="white">Kursvärdering</td>
+                            <td class="grey">Kursrapport</td>
+                            <td class="white">Kursomdöme</td>
+                            <td class="grey">Godkänd andel</td>
+                            <td class="white">Taggar</td>
+                        </tr>
+                        <tr class="course">
+                            <td class="white">Kursnamn</td>
+                            <td class="grey">Period</td>
+                            <td class="white">Läsår</td>
+                            <td class="grey">Svar</td>
+                            <td class="white">Kursvärdering</td>
+                            <td class="grey">Kursrapport</td>
+                            <td class="white">Kursomdöme</td>
+                            <td class="grey">Godkänd andel</td>
+                            <td class="white">Taggar</td>
+                        </tr>
+                    </tbody>
+                </table>
+
+            </div>
+
         </div>
     </body>
 </html>

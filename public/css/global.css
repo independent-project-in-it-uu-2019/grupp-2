@@ -4,6 +4,6 @@
     margin: 0;
     padding: 0;
 }
-html,body {
-	height: 100%; /*Firefox needs this line...*/
-}
+/*html,body {
+	/*height: 100%; /*Firefox needs this line...
+}*/
