@@ -6,6 +6,30 @@ var http = require('http').Server(app);
 var io = require('socket.io')(http);
 var path = require('path');
 
+// Firebase App (the core Firebase SDK) is always required and
+// must be listed before other Firebase SDKs
+var firebase = require("firebase/app");
+
+// Add the Firebase products that you want to use
+require("firebase/auth");
+require("firebase/firestore");
+
+// Your web app's Firebase configuration
+var firebaseConfig = {
+    apiKey: "AIzaSyBRztgI8vk5XUSZukJgfkGWagA2rgDfk-c",
+    authDomain: "kandidat-50dc2.firebaseapp.com",
+    databaseURL: "https://kandidat-50dc2.firebaseio.com",
+    projectId: "kandidat-50dc2",
+    storageBucket: "kandidat-50dc2.appspot.com",
+    messagingSenderId: "410767555631",
+    appId: "1:410767555631:web:e284f8533f8a5f02"
+  };
+
+
+// Initialize Firebase
+firebase.initializeApp(firebaseConfig);
+
+
 // Pick arbitrary port for server
 var port = 3000;
 app.set('port', (process.env.PORT || port));
