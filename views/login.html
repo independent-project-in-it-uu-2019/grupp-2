@@ -1,0 +1,61 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+
+    <!-- FIREBASE -->
+    <script src="https://www.gstatic.com/firebasejs/6.0.0/firebase-app.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/6.0.0/firebase-auth.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/6.0.0/firebase-firestore.js"></script>
+    <script>
+        // TODO: Replace the following with your app's Firebase project configuration
+        var firebaseConfig = {
+            apiKey: "AIzaSyBZkSEzQz2epJIubGdMWuJ8ZqRQX72JDAk",
+            authDomain: "kand-a58c2.firebaseapp.com",
+            databaseURL: "https://kand-a58c2.firebaseio.com",
+            projectId: "kand-a58c2",
+            storageBucket: "kand-a58c2.appspot.com",
+            messagingSenderId: "723755140632",
+            appId: "1:723755140632:web:7e8730024bc17831"
+        };
+
+        // Initialize Firebase
+        firebase.initializeApp(firebaseConfig);
+    </script>
+
+    <script src="js/login.js" defer></script>
+
+    <link rel="stylesheet" href="css/login.css">
+    <link rel="stylesheet" href="css/global.css">
+    <title>Login</title>
+</head>
+
+<body>
+    <div class="wrapper">
+        <div class="title">
+            <h1>Logga in</h1>
+            <div class="title-underline"></div>
+        </div>
+        <div class="subtitle">
+            <h5 class="dark-grey">
+                Välkommen! Logga in för att använda TekNat
+                fakultetens kursrapportstjänst.
+            </h5>
+        </div>
+        <div class="form-wrapper">
+            <form>
+                <input class="input username" type="email" placeholder="Användaridentitet" />
+                <div class="input-underline"></div>
+                <input class="input password" type="password" placeholder="Lösenord" onfocus="this.value=''"/>
+                <div class="input-underline"></div>
+            </form>
+        </div>
+        <button class="login-button" onclick="login()"> Logga in </button>
+    </div>
+</body>
+
+</html>
