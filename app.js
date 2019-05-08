@@ -10,23 +10,23 @@ var soap = require('soap');
 var apiWSDL = 'http://test-ws.selma7.its.uu.se/selmaws-uu/services/PlanTjanst?wsdl';
 
 function getKursplan() {
-    var p = new Promise(function(resolve, reject) {
-		
-		soap.createClient(apiWSDL, (err, client) => {
-            if(err) throw new Error(err);
+    var p = new Promise(function (resolve, reject) {
+
+        soap.createClient(apiWSDL, (err, client) => {
+            if (err) throw new Error(err);
 
             var args = {
                 benamning: '',
                 kurskod: '1TD',
                 sortering: '',
             }
-            
+
             var response = client.sokKursplan(args, (err, res) => {
-                if(err) throw new Error(err);
+                if (err) throw new Error(err);
 
                 //console.log(res);
-                
-                
+
+
                 for (let i = 0; i < res.return.length; i++) {
                     console.log(res.return[i]);
                 }
@@ -36,7 +36,7 @@ function getKursplan() {
 }
 
 
-getKursplan();
+//getKursplan();
 
 // Pick arbitrary port for server
 var port = 3000;
