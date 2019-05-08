@@ -60,6 +60,11 @@ app.get('/admin', function (req, res) {
     res.sendFile(path.join(__dirname, 'views/admin.html'));
 });
 
+// Serve login.html as /login
+app.get('/login', function (req, res) {
+    res.sendFile(path.join(__dirname, 'views/login.html'));
+});
+
 var server = http.listen(app.get('port'), function () {
     console.log('Server listening on port ' + app.get('port'));
 });
