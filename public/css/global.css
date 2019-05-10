@@ -12,3 +12,60 @@
 /*html,body {
 	/*height: 100%; /*Firefox needs this line...
 }*/
+
+:root {
+    --border-height: 70px;
+    --std-shadow: 0 0 5px #0003;
+}
+
+.border {
+    width: 100%;
+    height: var(--border-height);
+    box-shadow: 0 0 10px #0003;
+    background: white;
+    position: absolute;
+    top: 0;
+    left: 0;
+}
+
+.border h2,
+h3 {
+    width: fit-content;
+    line-height: var(--border-height);
+    ;
+    display: inline-block;
+    padding: 0 30px;
+}
+
+.border .leftAlign {
+    position: absolute;
+    left: 0;
+    padding-left: 30px;
+}
+
+.border .rightAlign {
+    position: absolute;
+    right: 0;
+    padding-right: 30px;
+}
+
+.border button {
+    border: none;
+    outline: none;
+    cursor: pointer;
+    float: right;
+    height: var(--border-height);
+    ;
+    padding: 0 20px;
+}
+
+.border button:hover {
+    background: #ddd;
+}
+
+.wrapper {
+    width: 100%;
+    max-width: 1000px;
+    margin: auto;
+    position: relative;
+}

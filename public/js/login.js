@@ -24,9 +24,8 @@ function login() {
     });
 }
 
-$('body').keypress(function (e) {
-    var key = e.which;
-    if (key == 13) {
+$('.password, .username').keypress(function (e) {
+    if (e.which == 13 && $('.password').val() != "" && $('.username').val() != "") {
         login();
     }
 });
