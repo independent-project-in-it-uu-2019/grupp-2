@@ -18,6 +18,14 @@
     --std-shadow: 0 0 5px #0003;
 }
 
+*:focus {
+    outline: none;
+}
+
+.bold {
+    font-weight: bold;
+}
+
 .border {
     width: 100%;
     height: var(--border-height);
@@ -60,7 +68,7 @@ h3 {
 }
 
 .border button:hover {
-    background: #ddd;
+    text-decoration: underline;
 }
 
 .wrapper {
