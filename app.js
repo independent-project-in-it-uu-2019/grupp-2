@@ -17,26 +17,30 @@ function getKursplan() {
 
             var args = {
                 benamning: '',
-                kurskod: '1TD',
+                kurskod: '',
+                startveckaFrom: '201901',
+                startveckaTom: '201910',
                 sortering: '',
             }
 
-            var response = client.sokKursplan(args, (err, res) => {
+            var response = client.sokKursplanStartvecka(args, (err, res) => {
                 if (err) throw new Error(err);
 
-                //console.log(res);
+                console.log(res.return[0]);
 
 
+                /*
                 for (let i = 0; i < res.return.length; i++) {
                     console.log(res.return[i]);
                 }
+                */
             });
         });
     });
 }
 
 
-//getKursplan();
+getKursplan();
 
 // Pick arbitrary port for server
 var port = 3000;
