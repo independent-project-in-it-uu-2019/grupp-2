@@ -34,62 +34,6 @@
     <link rel="stylesheet" href="css/global.css">
     <style>
         /* Senare så klipper vi ut det här till en egen fil */
-        :root {
-            --border-height: 70px;
-            --std-shadow: 0 0 5px #0003;
-        }
-
-        .border {
-            width: 100%;
-            height: var(--border-height);
-            box-shadow: 0 0 10px #0003;
-            position: absolute;
-            top: 0;
-            left: 0;
-        }
-
-        .border h2,
-        h3 {
-            width: fit-content;
-            line-height: var(--border-height);
-            ;
-            display: inline-block;
-            padding: 0 30px;
-        }
-
-        .border .leftAlign {
-            position: absolute;
-            left: 0;
-            padding-left: 30px;
-        }
-
-        .border .rightAlign {
-            position: absolute;
-            right: 0;
-            padding-right: 30px;
-        }
-
-        .border button {
-            border: none;
-            outline: none;
-            cursor: pointer;
-            float: right;
-            height: var(--border-height);
-            ;
-            padding: 0 20px;
-        }
-
-        .border button:hover {
-            background: #ddd;
-        }
-
-        .wrapper {
-            width: 100%;
-            max-width: 1000px;
-            margin: auto;
-            position: relative;
-        }
-
         .searchbox {
             border-radius: 4px;
             box-shadow: 0 0 10px #0003;
@@ -203,8 +147,9 @@
                     <option value="es">ES</option>
                     <option value="f">F</option>
                 </select>
-            </div>
-            <div class="searchboxbox">
+            </div><!--
+                searchboxbox-divarna behöver nudda varandra annars förstörs stylingen
+            --><div class="searchboxbox">
                 <p>Taggar</p>
                 <div style="overflow: auto;
                         height: 120px;
@@ -217,8 +162,7 @@
                     <span class="taggar">Flipped classroom</span>
                 </div>
 
-            </div>
-            <div class="searchboxbox">
+            </div><div class="searchboxbox">
                 <p>Läsår</p>
                 <select>
                     <option value="2019">2019</option>
@@ -234,8 +178,8 @@
                     <option value="three">3</option>
                     <option value="four">4</option>
                 </select>
-            </div>
-            <div class="searchboxbox">
+            
+            </div><div class="searchboxbox">
                 <p>Hej</p>
                 <input type="checkbox"> Saknar kursrapport
                 <br><br>

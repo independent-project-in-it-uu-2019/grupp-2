@@ -24,3 +24,9 @@ function login() {
     });
 }
 
+$('.password, .username').keypress(function (e) {
+    if (e.which == 13 && $('.password').val() != "" && $('.username').val() != "") {
+        login();
+    }
+});
+

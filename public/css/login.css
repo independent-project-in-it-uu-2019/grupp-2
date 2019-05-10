@@ -1,6 +1,6 @@
 .wrapper {
     text-align: center;
-    margin-top: 150px;
+    margin-top: 150px !important;
 }
 
 .title-underline {
