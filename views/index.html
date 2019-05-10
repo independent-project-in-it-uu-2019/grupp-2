@@ -26,7 +26,7 @@
         firebase.initializeApp(firebaseConfig);
     </script>
 
-    
+
     <script src="/socket.io/socket.io.js" defer></script>
     <script src="js/index.js" defer></script>
 
@@ -56,7 +56,8 @@
         }
 
         .searchboxbox p {
-            color: #333;
+            color: #666;
+            font-weight: bold;
             margin: 10px 0;
         }
 
@@ -70,9 +71,11 @@
         }
 
         .searchboxbox select {
-            color: #333;
             width: 100%;
             font-size: 0.8em;
+            height: 30px;
+            background-color: white;
+            color: #666;
         }
 
         .searchboxbox .taggar {
@@ -89,8 +92,104 @@
             cursor: pointer;
         }
 
+        .searchbox .checkboxes {
+            margin-top: 30px;
+        }
+
+        .searchbox .search-button {
+            width: 130px;
+            height: 40px;
+            text-align: center;
+            background-color: #11AE6B;
+            border-radius: 5px;
+            color: white;
+            font-weight: bold;
+            font-size: 1em;
+        }
+
+        .searchbox .search-button:hover {
+            background-color: #13BD75;
+            cursor: pointer;
+        }
+
+        .searchbox .search-button img {
+            width: 17px;
+            height: 17px;
+            margin-left: 10px;
+            transform: translate(0, 5%);
+        }
+
+        .checkbox-container {
+            display: block;
+            position: relative;
+            padding-left: 25px;
+            cursor: pointer;
+            -webkit-user-select: none;
+            -moz-user-select: none;
+            -ms-user-select: none;
+            user-select: none;
+        }
+
+        .checkbox-container input {
+            position: absolute;
+            opacity: 0;
+            cursor: pointer;
+            height: 0;
+            width: 0;
+        }
+
+        .checkmark {
+            position: absolute;
+            top: 0;
+            left: 0;
+            height: 1.2em;
+            width: 1.2em;
+            background-color: #eee;
+            border-radius: 5px;
+            padding: 2px;
+        }
+
+        .checkbox-container:hover input~.checkmark {
+            background-color: #ccc;
+        }
+
+        .checkbox-container input:checked~.checkmark {
+            background-color: #13BD75;
+        }
+
+        .checkmark:after {
+            content: "";
+            position: absolute;
+            display: none;
+        }
+
+        .checkbox-container input:checked~.checkmark:after {
+            display: block;
+        }
+
+        .checkbox-container .checkmark:after {
+            left: 5px;
+            top: 2px;
+            width: 5px;
+            height: 9px;
+            border: solid white;
+            border-width: 0 3px 3px 0;
+            border-radius: 1px;
+            -webkit-transform: rotate(45deg);
+            -ms-transform: rotate(45deg);
+            transform: rotate(45deg);
+        }
+
         .courses {
             margin: 50px 0;
+        }
+
+        table {
+            width: 100%;
+        }
+
+        tbody {
+            font-size: 0.8em;
         }
 
         .course {
@@ -98,8 +197,42 @@
             box-shadow: var(--std-shadow);
         }
 
+        tr {
+            border-radius: 5px;
+        }
+
+        tbody:before {
+            line-height: 4px;
+            content: "-";
+            color: white;
+            display: block;
+        }
+
+        tbody td {
+            padding: 5px;
+        }
+
         td.grey {
-            background: #ddd;
+            background: #f1f1f1;
+        }
+
+        td select {
+            border: none;
+            font-size: 1em;
+            text-align: center;
+            margin: auto;
+            display: block;
+            margin: 0 auto;
+            padding: 0;
+            background-color: white;
+        }
+
+        td select.grey {
+            background-color: #f1f1f1;
+        }
+
+        .center {
+            text-align: center;
         }
 
         .kursnamn {}
@@ -138,17 +271,27 @@
         <div class="searchbox">
             <div class="searchboxbox">
                 <p>Sök</p>
-                <input type="text" placeholder="Sök kurs">
-                <p>Program</p>
+                <input type="text" placeholder="Namn eller kurskod">
+
+                <div class="checkboxes">
+                    <p><label class="checkbox-container">Saknar kursrapport<input type="checkbox"><span
+                                class="checkmark"></span></label></p>
+                    <p><label class="checkbox-container">Saknar kursvärdering<input type="checkbox"><span
+                                class="checkmark"></span></label></p>
+                </div>
+
+                <!--p>Program</p>
                 <select>
                     <option value="alla">Alla</option>
                     <option value="it">IT</option>
                     <option value="es">ES</option>
                     <option value="f">F</option>
-                </select>
-            </div><!--
+                </select-->
+            </div>
+            <!--
                 searchboxbox-divarna behöver nudda varandra annars förstörs stylingen
-            --><div class="searchboxbox">
+            -->
+            <div class="searchboxbox">
                 <p>Taggar</p>
                 <div style="overflow: auto;
                         height: 120px;
@@ -161,13 +304,15 @@
                     <span class="taggar">Flipped classroom</span>
                 </div>
 
-            </div><div class="searchboxbox">
+            </div>
+            <div class="searchboxbox">
                 <p>Läsår</p>
                 <select>
-                    <option value="2019">2019</option>
-                    <option value="2018">2018</option>
-                    <option value="2017">2017</option>
-                    <option value="2016">2016</option>
+                    <option value="2018/2019">Visa senaste</option>
+                    <option value="2018/2019">2018/2019</option>
+                    <option value="2017/2018">2017/2018</option>
+                    <option value="2016/2017">2016/2017</option>
+                    <option value="2015/2016">2015/2016</option>
                 </select>
                 <p>Period</p>
                 <select>
@@ -177,18 +322,15 @@
                     <option value="three">3</option>
                     <option value="four">4</option>
                 </select>
-            
-            </div><div class="searchboxbox">
-                <p>Hej</p>
-                <input type="checkbox"> Saknar kursrapport
-                <br><br>
-                <input type="checkbox"> Saknar kursvärdering
+            </div>
+            <div class="searchboxbox">
+                <button class="search-button"> Sök <img src="img/search.png" /></button>
             </div>
         </div>
 
         <div class="courses">
             <table>
-                <thead>
+                <thead class="dark-grey">
                     <tr>
                         <td>Kursnamn</td>
                         <td>Period</td>
@@ -204,19 +346,22 @@
                 <tbody>
                     <tr class="course">
                         <td class="white">Kursnamn</td>
-                        <td class="grey">Period</td>
-                        <td class="white">Läsår</td>
-                        <td class="grey">Svar</td>
-                        <td class="white">Kursvärdering</td>
-                        <td class="grey">Kursrapport</td>
-                        <td class="white">Kursomdöme</td>
-                        <td class="grey">Godkänd andel</td>
-                        <td class="white">Taggar</td>
-                    </tr>
-                    <tr class="course">
-                        <td class="white">Kursnamn</td>
-                        <td class="grey">Period</td>
-                        <td class="white">Läsår</td>
+                        <td class="grey">
+                            <select class="grey">
+                                <option value="2018/2019">1</option>
+                                <option value="2018/2019">2</option>
+                                <option value="2017/2018">3</option>
+                                <option value="2016/2017">4</option>
+                            </select>
+                        </td>
+                        <td class="white">
+                            <select>
+                                <option value="2018/2019">2018/2019</option>
+                                <option value="2017/2018">2017/2018</option>
+                                <option value="2016/2017">2016/2017</option>
+                                <option value="2015/2016">2015/2016</option>
+                            </select>
+                        </td>
                         <td class="grey">Svar</td>
                         <td class="white">Kursvärdering</td>
                         <td class="grey">Kursrapport</td>
