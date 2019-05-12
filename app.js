@@ -54,7 +54,7 @@ function getKursplan(benamning, kurskod) {
     });
 }
 
-getKursplan('matematik', '');
+//getKursplan('matematik', '');
 
 /*
 function getWeek(fromOrTo, year, period) {
