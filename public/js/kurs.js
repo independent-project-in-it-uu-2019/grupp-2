@@ -1,7 +1,7 @@
 var totalt = Math.floor(Math.random() * 100) + 1;
+var svarat = Math.floor(Math.random() * totalt) + 1;
 
 function createAntalSvarChart() {
-    let svarat = Math.floor(Math.random() * totalt) + 1;
     let inteSvarat = totalt - svarat;
     let data = [svarat, inteSvarat];
 
@@ -81,12 +81,10 @@ function createBetygsChart() {
     let four = Math.floor(Math.random() * (totalt - u - three));
     let five = totalt - u - three - four;
 
-    uData[labels.length-1] = u;
-    threeData[labels.length-1] = three;
-    fourData[labels.length-1] = four;
-    fiveData[labels.length-1] = five;
-
-    console.log(totalt, uData, threeData, fourData, fiveData);
+    uData[labels.length - 1] = u;
+    threeData[labels.length - 1] = three;
+    fourData[labels.length - 1] = four;
+    fiveData[labels.length - 1] = five;
 
     var stackedBar = new Chart(ctx, {
         type: 'bar',
@@ -141,22 +139,144 @@ function createBetygsChart() {
                 stacked100: { enable: true, replaceTooltipLabel: false }
             },
             legend: {
-                position: 'left',
+                position: 'top',
             },
         }
     });
 }
 
-function getRandomGrades() {
-    let u = Math.floor(Math.random() * totalt);
-    let three = Math.floor(Math.random() * (totalt - u)) + 1;
-    let four = Math.floor(Math.random() * (totalt - u - three)) + 1;
-    let five = totalt - u - three - four;
+function createNojdChart() {
+    let ctx = $('#nojdChart');
 
-    return [u, three, four, five];
+    let labels = ['Period 2 2015', 'Period 1 2016', 'Period 2 2016', 'Period 1 2017', 'Period 2 2017', 'Period 1 2018', 'Period 2 2018'];
+
+    let data = [];
+
+    for (let i = 0; i < labels.length; i++) {
+        data.push(Math.floor(Math.random() * 5) + 1);
+    }
+
+    var stackedBar = new Chart(ctx, {
+        type: 'line',
+        data: {
+            labels: labels,
+            datasets: [{
+                label: 'Genomsnittligt nöjdhetsbetyg',
+                backgroundColor: "#11AE6B",
+                borderColor: "#11AE6B",
+                borderWidth: 2,
+                lineTension: 0,
+                pointBorderColor: "#11AE6B",
+                data: data,
+                fill: false,
+                pointBorderWidth: 2,
+                pointRadius: 5,
+                pointHoverRadius: 5,
+                pointHoverBorderWidth: 2,
+                pointHoverBackgroundColor: '#FFFFFF',
+                pointBackgroundColor: "#FFFFFF",
+
+            }],
+        },
+        options: {
+            responsive: true,
+            legend: {
+                display: false
+            },
+            tooltips: {
+                callbacks: {
+                    label: function (tooltipItem) {
+                        return tooltipItem.yLabel;
+                    }
+                },
+                mode: 'index',
+                intersect: false,
+            },
+            hover: {
+                mode: 'nearest',
+                intersect: true
+            }
+        }
+    });
 }
 
-createAntalSvarChart();
-createBetygsChart();    
+function createKursvarderatChart() {
+    let ctx = $('#kursvarderatChart');
 
-getRandomGrades();
+    let labels = ['Period 2 2015', 'Period 1 2016', 'Period 2 2016', 'Period 1 2017', 'Period 2 2017', 'Period 1 2018', 'Period 2 2018'];
+
+    var max = 100;
+
+    let data = [];
+
+    for (let i = 0; i < labels.length -1; i++) {
+        data.push(Math.floor(Math.random() * max));
+    }
+    data.push((svarat/totalt) * 100);
+
+    var stackedBar = new Chart(ctx, {
+        type: 'line',
+        data: {
+            labels: labels,
+            datasets: [{
+                label: 'Andel registrerade studenter som kursvärderat',
+                backgroundColor: "#11AE6B",
+                borderColor: "#11AE6B",
+                borderWidth: 2,
+                lineTension: 0,
+                pointBorderColor: "#11AE6B",
+                data: data,
+                fill: false,
+                pointBorderWidth: 2,
+                pointRadius: 5,
+                pointHoverRadius: 5,
+                pointHoverBorderWidth: 2,
+                pointHoverBackgroundColor: '#FFFFFF',
+                pointBackgroundColor: "#FFFFFF",
+
+            }],
+        },
+        options: {
+            responsive: true,
+            legend: {
+                display: false
+            },
+            tooltips: {
+                callbacks: {
+                    label: function (tooltipItem) {
+                        return tooltipItem.yLabel;
+                    },
+                    label: function (tooltipItem, data) {
+                        var dataset = data.datasets[tooltipItem.datasetIndex];
+                        var currentValue = dataset.data[tooltipItem.index];
+                        var percentage = Math.floor(((currentValue / max) * 100));
+                        return ' ' + percentage + "%";
+                    },
+                },
+                mode: 'index',
+                intersect: false,
+            },
+            hover: {
+                mode: 'nearest',
+                intersect: true
+            },
+            scales: {
+                yAxes: [{
+                    ticks: {
+                        min: 0,
+                        max: max,
+                        callback: function (value) {
+                            return (value / max * 100).toFixed(0) + '%'; // convert it to percentage
+                        },
+                    }
+                }]
+            }
+        }
+    });
+}
+
+
+createAntalSvarChart();
+createBetygsChart();
+createNojdChart();
+createKursvarderatChart();

@@ -1,7 +1,7 @@
 // Check if user is logged in
 firebase.auth().onAuthStateChanged(function (user) {
     if (user) {
-        console.log(user);
+        //console.log(user);
         $('.user').text(user.email);
     } else {
         window.location = '/login';
