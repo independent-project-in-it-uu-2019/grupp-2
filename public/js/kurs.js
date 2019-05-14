@@ -1,5 +1,14 @@
 var totalt = Math.floor(Math.random() * 100) + 1;
 var svarat = Math.floor(Math.random() * totalt) + 1;
+var labels = [
+    'Period 2 2015', 
+    'Period 1 2016', 
+    'Period 2 2016', 
+    'Period 1 2017', 
+    'Period 2 2017', 
+    'Period 1 2018', 
+    'Period 2 2018'
+];
 
 function createAntalSvarChart() {
     let inteSvarat = totalt - svarat;
@@ -55,8 +64,6 @@ function createAntalSvarChart() {
 
 function createBetygsChart() {
     let ctx = $('#betygsChart');
-
-    let labels = ['Period 2 2015', 'Period 1 2016', 'Period 2 2016', 'Period 1 2017', 'Period 2 2017', 'Period 1 2018', 'Period 2 2018'];
 
     let uData = [];
     let threeData = [];
@@ -148,10 +155,7 @@ function createBetygsChart() {
 function createNojdChart() {
     let ctx = $('#nojdChart');
 
-    let labels = ['Period 2 2015', 'Period 1 2016', 'Period 2 2016', 'Period 1 2017', 'Period 2 2017', 'Period 1 2018', 'Period 2 2018'];
-
     let data = [];
-
     for (let i = 0; i < labels.length; i++) {
         data.push(Math.floor(Math.random() * 5) + 1);
     }
@@ -203,12 +207,8 @@ function createNojdChart() {
 function createKursvarderatChart() {
     let ctx = $('#kursvarderatChart');
 
-    let labels = ['Period 2 2015', 'Period 1 2016', 'Period 2 2016', 'Period 1 2017', 'Period 2 2017', 'Period 1 2018', 'Period 2 2018'];
-
     var max = 100;
-
     let data = [];
-
     for (let i = 0; i < labels.length -1; i++) {
         data.push(Math.floor(Math.random() * max));
     }
