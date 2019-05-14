@@ -157,6 +157,6 @@ function getRandomGrades() {
 }
 
 createAntalSvarChart();
-createBetygsChart();
+createBetygsChart();    
 
 getRandomGrades();
