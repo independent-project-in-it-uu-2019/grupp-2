@@ -27,11 +27,13 @@
     </script>
 
 
-    <script src="/socket.io/socket.io.js" defer></script>
+    <script src="/socket.io/socket.io.js"></script>
     <script src="js/checkLoggedIn.js" defer></script>
     <script src="js/index.js" defer></script>
+    <script src="js/global.js"></script>
 
     <link rel="stylesheet" href="css/global.css">
+    <link rel="stylesheet" href="css/modal.css">
     <style>
         /* Senare så klipper vi ut det här till en egen fil */
         .searchbox {
@@ -98,7 +100,6 @@
         }
 
         .searchbox .search-button {
-            width: 130px;
             height: 40px;
             text-align: center;
             background-color: #11AE6B;
@@ -106,11 +107,14 @@
             color: white;
             font-weight: bold;
             font-size: 1em;
+            width: 100%;
+            border: none;
         }
 
         .searchbox .search-button:hover {
             background-color: #13BD75;
             cursor: pointer;
+            border: none;
         }
 
         .searchbox .search-button img {
@@ -187,6 +191,7 @@
 
         table {
             width: 100%;
+            border-collapse: collapse;
         }
 
         tbody {
@@ -202,6 +207,10 @@
             border-radius: 5px;
         }
 
+        tr>td {
+            padding-bottom: 1em;
+        }
+
         tbody:before {
             line-height: 4px;
             content: "-";
@@ -211,6 +220,7 @@
 
         tbody td {
             padding: 5px;
+            min-width: 50px;
         }
 
         td.grey {
@@ -228,31 +238,41 @@
             background-color: white;
         }
 
+        td a {
+            color: black;   
+        }
+
         td select.grey {
             background-color: #f1f1f1;
         }
 
-        .center {
-            text-align: center;
+        .kursnamn:hover {
+            cursor: pointer;
+            text-decoration: underline;
         }
 
-        .kursnamn {}
+        .saknas {
+            background-color: #FDD7D8;
+            color: #DF0A0A;
+        }
 
-        .period {}
+        .saknas-light {
+            background-color: #FFEAEB;
+            color: #DF0A0A;
+        }
 
-        .laesaor {}
+        .spacer {
+            height: 10px;
+            background: transparent;
+        }
 
-        .svar {}
+        .warning {
+            color: #DF0A0A;
+        }
 
-        .kursvardering {}
-
-        .kursrapport {}
-
-        .kursomdome {}
-
-        .godkand {}
-
-        .coursetaggar {}
+        .good {
+            color: #11AE6B;
+        }
     </style>
 </head>
 
@@ -269,10 +289,9 @@
         </div>
     </div>
     <div class="wrapper">
-        <div class="searchbox">
-            <div class="searchboxbox">
+        <div class="searchbox"><div class="searchboxbox">
                 <p>Sök</p>
-                <input type="text" placeholder="Namn eller kurskod">
+                <input id="searchBox" type="text" placeholder="Namn eller kurskod">
 
                 <div class="checkboxes">
                     <p><label class="checkbox-container">Saknar kursrapport<input type="checkbox"><span
@@ -280,7 +299,6 @@
                     <p><label class="checkbox-container">Saknar kursvärdering<input type="checkbox"><span
                                 class="checkmark"></span></label></p>
                 </div>
-
                 <!--p>Program</p>
                 <select>
                     <option value="alla">Alla</option>
@@ -288,11 +306,9 @@
                     <option value="es">ES</option>
                     <option value="f">F</option>
                 </select-->
-            </div>
-            <!--
+            </div><!--
                 searchboxbox-divarna behöver nudda varandra annars förstörs stylingen
-            -->
-            <div class="searchboxbox">
+            --><div class="searchboxbox">
                 <p>Taggar</p>
                 <div style="overflow: auto;
                         height: 120px;
@@ -304,9 +320,7 @@
                     <span class="taggar">Studium</span>
                     <span class="taggar">Flipped classroom</span>
                 </div>
-
-            </div>
-            <div class="searchboxbox">
+            </div><div class="searchboxbox">
                 <p>Läsår</p>
                 <select>
                     <option value="2018/2019">Visa senaste</option>
@@ -323,12 +337,15 @@
                     <option value="three">3</option>
                     <option value="four">4</option>
                 </select>
-            </div>
-            <div class="searchboxbox">
-                <button class="search-button"> Sök <img src="img/search.png" /></button>
+            </div><div class="searchboxbox">
+                <br>
+                <br>
+                <br>
+                <br>
+                <br>
+                <button class="search-button" onclick="searchCourse()"> Sök <img src="img/search.png" /></button>
             </div>
         </div>
-
         <div class="courses">
             <table>
                 <thead class="dark-grey">
@@ -340,13 +357,13 @@
                         <td>Kursvärdering</td>
                         <td>Kursrapport</td>
                         <td>Kursomdöme</td>
-                        <td>Godkänd andel</td>
+                        <td>Andel godkända</td>
                         <td>Taggar</td>
                     </tr>
                 </thead>
-                <tbody>
+                <tbody id="tbody">
                     <tr class="course">
-                        <td class="white">Kursnamn</td>
+                        <td class="white kursnamn">Kursnamn</td>
                         <td class="grey">
                             <select class="grey">
                                 <option value="2018/2019">1</option>
@@ -367,14 +384,20 @@
                         <td class="white">Kursvärdering</td>
                         <td class="grey">Kursrapport</td>
                         <td class="white">Kursomdöme</td>
-                        <td class="grey">Godkänd andel</td>
+                        <td class="grey">Andel godkända</td>
                         <td class="white">Taggar</td>
                     </tr>
                 </tbody>
             </table>
-
         </div>
+    </div>
 
+    <!-- The Modal -->
+    <div id="modal" class="modal">
+        <!-- Modal content -->
+        <div class="modal-content">
+            <p>Söker...</p>
+        </div>
     </div>
 </body>
 

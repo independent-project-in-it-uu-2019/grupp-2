@@ -10,6 +10,13 @@ var labels = [
     'Period 2 2018'
 ];
 
+var kurskod = localStorage.getItem('kurskod');
+var kursnamn = localStorage.getItem('kursnamn');
+
+console.log(kurskod, kursnamn);
+
+$('#kursnamn').html(kurskod + ' - ' + kursnamn);
+
 function createAntalSvarChart() {
     let inteSvarat = totalt - svarat;
     let data = [svarat, inteSvarat];

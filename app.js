@@ -13,8 +13,11 @@ var apiWSDL = 'http://test-ws.selma7.its.uu.se/selmaws-uu/services/PlanTjanst?ws
 // Hur ska vi begränsa antalet resultat, typ att man måste ha minst tre 
 // bokstäver/siffror i söktermen? 
 
+var kurser = [];
+
 function getKursplan(benamning, kurskod) {
-    var p = new Promise(function (resolve, reject) {
+    console.log('Searching...');
+    return new Promise(function (resolve, reject) {
 
         soap.createClient(apiWSDL, (err, client) => {
             if (err) throw new Error(err);
@@ -24,85 +27,53 @@ function getKursplan(benamning, kurskod) {
                 kurskod: kurskod,
                 startveckaFrom: '',
                 startveckaTom: '',
-                sortering: 'kurskod',
+                sortering: 'startvecka',
             }
 
             var response = client.sokKursplanStartvecka(args, (err, res) => {
                 if (err) throw new Error(err);
 
                 if (res == null) {
-                    throw new Error('No results!');
-                }
+                    resolve(res);
+                } else {
+                    //console.log(res.return);
 
-                var kurser = [];
+                    var kurser = {};
+                    for (let i = 0; i < res.return.length; i++) {
+                        let kurskod = res.return[i].kurs.kurskod;
+                        let namn = res.return[i].kurs.namn;
+                        let startvecka = res.return[i].startvecka;
 
-                for (let i = 0; i < res.return.length; i++) {
-                    let namn = res.return[i].kurs.namn;
-                    let kod = res.return[i].kurs.kurskod;
-                    let kurs = kod + ' - ' + namn;
 
-                    if (!kurser.includes(kurs)) {
-                        kurser.push(kurs);
+                        if (kurser[kurskod] == undefined) {
+                            kurser[kurskod] = {
+                                namn: namn,
+                                startvecka: [startvecka]
+                            }
+                        } else {
+                            kurser[kurskod].startvecka.push(startvecka);
+                        }
                     }
+                    resolve(kurser);
                 }
-                console.log(kurser);
-                console.log(kurser.length); 
-                console.log('nr of results: ' + res.return.length);
-
             });
         });
     });
 }
+//getKursplan('', '1DT350');
 
-//getKursplan('matematik', '');
-
-/*
-function getWeek(fromOrTo, year, period) {
-
-    // Check week and year
-    if (period < 1 || period > 4) {
-        throw new Error('Invalid period: ' + period);
-    }
-    if (year > new Date().getFullYear() || year < 1990) {
-        throw new Error('Invalid year: ' + year);
+io.on('connection', function (socket) {
+    socket.emit('initialize', 'Hej klient!');
+    async function search(data) {
+        var kurser = await getKursplan(data, '');
+        console.log(kurser);
+        socket.emit('searchResult', kurser);
     }
 
-    if (fromOrTo == 'from') {
-        if (period < 3) {
-            year = (year - 1) + '';
-
-            if (period == 1) {
-                return year + '' + '36';
-            } else {
-                return year + '' + '44';
-            }
-        } else {
-            if (period == 3) {
-                return year + '' + '04';
-            } else {
-                return year + '' + '13';
-            }
-        }
-    } else if (fromOrTo == 'to') {
-
-        if (period == 1) {
-            year = (year - 1) + '';
-            return year + '' + '43';
-
-        } else if (period == 2) {
-            return year + '' + '03';
-
-        } else if (period == 3) {
-            return year + '' + '12';
-
-        } else {
-            return year + '' + '23';
-        }
-    } else {
-        throw new Error('Invalid fromOrTwo: ' + fromOrTo);
-    }
-}
-*/
+    socket.on('search', data => {
+        search(data);
+    })
+});
 
 // Pick arbitrary port for server
 var port = 3000;
