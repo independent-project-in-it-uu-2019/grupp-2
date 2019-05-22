@@ -200,3 +200,19 @@ function navigate(kurskod, namn) {
     window.location.href = '/kurs?=' + kurskod;
 }
 
+var moreORless = -1;
+function doAvancerat()
+{
+    if (moreORless < 0) {
+        $('#avancerat').css('height', '250px');
+        $('#avancerat').css("border-color", "#d8d8d8");
+        $("#moreORless").css("transform", "rotate(-180deg)");
+        $(".searchbox").css("width", "100%")
+    } else {
+        $('#avancerat').css('height', '0px');
+        $('#avancerat').css("border-color", "#0000");
+        $("#moreORless").css("transform", "rotate(0deg)");
+        $(".searchbox").css("width", "500px")
+    }
+    moreORless = -moreORless;
+}

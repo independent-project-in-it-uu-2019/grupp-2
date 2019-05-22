@@ -39,9 +39,10 @@
         .searchbox {
             border-radius: 4px;
             box-shadow: 0 0 10px #0003;
-            margin-top: 100px;
-            width: 100%;
+            margin: 100px auto 0 auto;
+            width: 500px;
             padding: 0 20px;
+            transition: 0.3s;
         }
 
         .searchboxbox {
@@ -66,11 +67,12 @@
 
         .searchboxbox input[type=text] {
             color: #333;
-            padding: 5px 10px;
+            padding: 7px 10px;
             border-radius: 4px;
-            width: 100%;
+            width: 220px;
             border: #bbb 1px solid;
             font-size: 0.9em;
+            display: inline-block;
         }
 
         .searchboxbox select {
@@ -100,15 +102,16 @@
         }
 
         .searchbox .search-button {
-            height: 40px;
+            height: 32px;
             text-align: center;
             background-color: #11AE6B;
             border-radius: 5px;
             color: white;
             font-weight: bold;
             font-size: 1em;
-            width: 100%;
+            width: 100px;
             border: none;
+            float: right;
         }
 
         .searchbox .search-button:hover {
@@ -122,6 +125,26 @@
             height: 17px;
             margin-left: 10px;
             transform: translate(0, 5%);
+        }
+
+        #avancerat {
+            width: 100%;
+            border-top: 2px solid #0000;
+            height: 0px;
+            transition: 0.3s;
+            overflow: hidden;
+        }
+
+        #showMoreLess {
+            text-align: center;
+            font-weight: 300;
+            cursor: pointer;
+            width: fit-content;
+            margin: auto;
+            opacity: 0.6;
+        }
+        #showMoreLess:hover {
+            opacity: 1;
         }
 
         .checkbox-container {
@@ -289,61 +312,77 @@
         </div>
     </div>
     <div class="wrapper">
-        <div class="searchbox"><div class="searchboxbox">
-                <p>Sök</p>
+        <div class="searchbox">
+            <div class="searchboxbox" style="margin: auto; width: 400px; display: block;">
+                <p>Sök kurs</p>
                 <input id="searchBox" type="text" placeholder="Namn eller kurskod">
-
-                <div class="checkboxes">
-                    <p><label class="checkbox-container">Saknar kursrapport<input type="checkbox"><span
-                                class="checkmark"></span></label></p>
-                    <p><label class="checkbox-container">Saknar kursvärdering<input type="checkbox"><span
-                                class="checkmark"></span></label></p>
-                </div>
-                <!--p>Program</p>
-                <select>
-                    <option value="alla">Alla</option>
-                    <option value="it">IT</option>
-                    <option value="es">ES</option>
-                    <option value="f">F</option>
-                </select-->
-            </div><!--
-                searchboxbox-divarna behöver nudda varandra annars förstörs stylingen
-            --><div class="searchboxbox">
-                <p>Taggar</p>
-                <div style="overflow: auto;
-                        height: 120px;
-                        padding-bottom: 10px">
-                    <span class="taggar">Hemtenta</span>
-                    <span class="taggar">Studium</span>
-                    <span class="taggar">Flipped classroom</span>
-                    <span class="taggar">Hemtenta</span>
-                    <span class="taggar">Studium</span>
-                    <span class="taggar">Flipped classroom</span>
-                </div>
-            </div><div class="searchboxbox">
-                <p>Läsår</p>
-                <select>
-                    <option value="2018/2019">Visa senaste</option>
-                    <option value="2018/2019">2018/2019</option>
-                    <option value="2017/2018">2017/2018</option>
-                    <option value="2016/2017">2016/2017</option>
-                    <option value="2015/2016">2015/2016</option>
-                </select>
-                <p>Period</p>
-                <select>
-                    <option value="alla">Alla</option>
-                    <option value="one">1</option>
-                    <option value="two">2</option>
-                    <option value="three">3</option>
-                    <option value="four">4</option>
-                </select>
-            </div><div class="searchboxbox">
-                <br>
-                <br>
-                <br>
-                <br>
-                <br>
                 <button class="search-button" onclick="searchCourse()"> Sök <img src="img/search.png" /></button>
+                <br>
+                <br>
+                <div id="showMoreLess" onclick="doAvancerat()">
+                    Visa avancerade alternativ <div id="moreORless" style="display: inline-block; transition: 0.3s">V</div>
+                </div>
+            </div>
+            <div id="avancerat">
+                <div class="searchboxbox">
+                    <p>Program</p>
+                    <select>
+                        <option value="alla">Alla</option>
+                        <option value="TEL2Y">Civ. i elektroteknik (E)</option>
+                        <option value="TES2Y">Civ. i energisystem (ES)</option>
+                        <option value="TTF2Y">Civ. i teknisk fysik (F)</option>
+                        <option value="TIT2Y">Civ. i informationsteknologi (IT)</option>
+                        <option value="TKT2Y">Civ. i kemiteknik (K)</option>
+                        <option value="TTM2Y">Civ. i tek. fys. m. materialvetenskap (Q)</option>
+                        <option value="TST2Y">Civ. i system i teknik och samhället (STS)</option>
+                        <option value="TMV2Y">Civ. i miljö- och vattenteknik (W)</option>
+                        <option value="TMB2Y">Civ. i molekylär bioteknik (X)</option>
+                        <option value="TEL1Y">Hög. i elektroteknik (Ei)</option>
+                        <option value="TME1Y">Hög. i medicinteknik (MT)</option>
+                        <option value="TDV1K">Kand. i datavetenskap (DV)</option>
+                    </select>
+                    <div class="checkboxes">
+                        <p><label class="checkbox-container">Saknar kursrapport<input type="checkbox"><span
+                                    class="checkmark"></span></label></p>
+                        <p><label class="checkbox-container">Saknar kursvärdering<input type="checkbox"><span
+                                    class="checkmark"></span></label></p>
+                    </div>
+                </div><div class="searchboxbox">
+                        <p>Läsår</p>
+                        <select>
+                            <option value="2018/2019">Visa senaste</option>
+                            <option value="2018/2019">2018/2019</option>
+                            <option value="2017/2018">2017/2018</option>
+                            <option value="2016/2017">2016/2017</option>
+                            <option value="2015/2016">2015/2016</option>
+                        </select>
+                        <p>Period</p>
+                        <select>
+                            <option value="alla">Alla</option>
+                            <option value="one">1</option>
+                            <option value="two">2</option>
+                            <option value="three">3</option>
+                            <option value="four">4</option>
+                        </select>
+                    </div><div class="searchboxbox">
+                    <p>Taggar</p>
+                    <div style="overflow: auto;
+                            height: 120px;
+                            padding-bottom: 10px">
+                        <span class="taggar">Hemtenta</span>
+                        <span class="taggar">Studium</span>
+                        <span class="taggar">Flipped classroom</span>
+                        <span class="taggar">Hemtenta</span>
+                        <span class="taggar">Studium</span>
+                        <span class="taggar">Flipped classroom</span>
+                    </div>
+                </div><div class="searchboxbox">
+                    <br>
+                    <br>
+                    <br>
+                    <br>
+                    <br>
+                </div>
             </div>
         </div>
         <div class="courses">
