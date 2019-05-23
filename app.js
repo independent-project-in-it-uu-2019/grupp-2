@@ -68,20 +68,71 @@ function filterProgram(programCode) {
         }
     }
     selmaSearchResult = res;
-};
+}
+
+function filterLasar(year1, year2) {
+    console.log(year1 + " " + year2);
+    let res = {};
+
+    for (let kurs in selmaSearchResult) {
+        let years = getYears(selmaSearchResult[kurs].startvecka);
+        let periods = getPeriods(selmaSearchResult[kurs].startvecka);
+        console.log(years);
+        console.log(periods);
+
+        if (years.includes(year1) && (periods.includes("1") || periods.includes("2"))) {
+            res[kurs] = selmaSearchResult[kurs];
+        }
+        if (years.includes(year2) && (periods.includes("3") || periods.includes("4"))) {
+            res[kurs] = selmaSearchResult[kurs];
+        }
+    }
+    selmaSearchResult = res;
+}
+
+function filterPeriod(period) {
+    let res = {};
+
+    for (let kurs in selmaSearchResult) {
+        let periods = getPeriods(selmaSearchResult[kurs].startvecka);
+        if (periods.includes(period)) {
+            res[kurs] = selmaSearchResult[kurs];
+        }
+    }
+    selmaSearchResult = res;
+}
 
 io.on('connection', function (socket) {
     async function search(data) {
-        selmaSearchResult = await getKursplan(data, '');
+        let text = data.text;
+        let programKod = data.valdProgramkod;
+        let noKursrapport = data.noKursrapport;
+        let noKursvardering = data.noKursvardering;
+        let lasar = data.valdLasar.split("/");
+        let period = data.valdPeriod;
+        
+        if (text.length > 2) {
+            selmaSearchResult = await getKursplan(text, '');
+        } else {
+            //Special case om man vill se alla kurser på ett program utan att
+            //söka med en text, alternativt söka på 1 eller 2 bokstäver
+        }
+
+        if (programKod != "alla") {
+            filterProgram(programKod);
+        }
+        if (lasar.length > 1) {
+            filterLasar(lasar[0], lasar[1]);
+        }
+        if (period != "alla") {
+            filterPeriod(period);
+        }
+        //console.log(selmaSearchResult);
         socket.emit('searchResult', selmaSearchResult);
     }
 
     socket.on('search', data => {
-        if (lengthOfObject(selmaSearchResult) < 1) search(data);
-        else {
-            filterProgram('TIT2Y');
-            socket.emit('searchResult', selmaSearchResult);
-        }
+        search(data);
     })
 
     socket.on('filterProgram', code => {
@@ -90,13 +141,15 @@ io.on('connection', function (socket) {
     })
 });
 
-
 // Hur skiljer vi på kurskod och kursnamn?
 // Hur ska vi begränsa antalet resultat, typ att man måste ha minst tre 
 // bokstäver/siffror i söktermen? 
 
 function getKursplan(benamning, kurskod) {
     console.log('Searching...');
+
+    /*TODO - kolla om benamning ser ut som kurskod och lös*/
+    
     return new Promise(function (resolve, reject) {
 
         soap.createClient(apiWSDL, (err, client) => {
@@ -179,4 +232,40 @@ function lengthOfObject(obj) {
         n++;
     }
     return n;
+}
+
+function getYears(startvecka) {
+    var years = [];
+
+    for (let i = 0; i < startvecka.length; i++) {
+        if (startvecka[i] != undefined) {
+            let year = startvecka[i].slice(0, 4);
+            if (!years.includes(year)) years.push(year);
+        }
+    }
+    return years.sort().reverse();
+}
+
+function getPeriods(startvecka) {
+    var periods = [];
+
+    for (let i = 0; i < startvecka.length; i++) {
+        if (startvecka[i] != undefined) {
+            let period = "1";
+            let vecka = startvecka[i].slice(4, 6);
+
+            if (vecka < 12) {
+                period = "3";
+            } else if (vecka < 23) {
+                period = "4";
+            } else if (vecka < 36) {
+                period = "1";
+            } else {
+                period = "2";
+            }
+            if (!periods.includes(period)) periods.push(period);
+        }
+
+    }
+    return periods.sort();
 }

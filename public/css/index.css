@@ -1,0 +1,270 @@
+.searchbox {
+    border-radius: 4px;
+    box-shadow: 0 0 10px #0003;
+    margin: 100px auto 0 auto;
+    width: 500px;
+    padding: 0 20px;
+    transition: 0.3s;
+}
+
+.searchboxbox {
+    width: 25%;
+    height: 100%;
+    padding: 20px 25px;
+    display: inline-table;
+    overflow: hidden;
+}
+
+@media screen and (max-width: 700px) {
+    .searchboxbox {
+        width: 50%;
+    }
+}
+
+.searchboxbox p {
+    color: #666;
+    font-weight: bold;
+    margin: 10px 0;
+}
+
+.searchboxbox input[type=text] {
+    color: #333;
+    padding: 7px 10px;
+    border-radius: 4px;
+    width: 220px;
+    border: #bbb 1px solid;
+    font-size: 0.9em;
+    display: inline-block;
+}
+
+.searchboxbox select {
+    width: 100%;
+    font-size: 0.8em;
+    height: 30px;
+    background-color: white;
+    color: #666;
+}
+
+.searchboxbox .taggar {
+    border-radius: 4px;
+    color: #333;
+    border: #bbb 1px solid;
+    padding: 5px 10px;
+    display: inline-table;
+    margin: 5px 5px 0 0;
+}
+
+.searchboxbox .taggar:hover {
+    background: #ddd;
+    cursor: pointer;
+}
+
+.searchbox .checkboxes {
+    margin-top: 30px;
+}
+
+.searchbox .search-button {
+    height: 32px;
+    text-align: center;
+    background-color: #11AE6B;
+    border-radius: 5px;
+    color: white;
+    font-weight: bold;
+    font-size: 1em;
+    width: 100px;
+    border: none;
+    float: right;
+}
+
+.searchbox .search-button:hover {
+    background-color: #13BD75;
+    cursor: pointer;
+    border: none;
+}
+
+.searchbox .search-button img {
+    width: 17px;
+    height: 17px;
+    margin-left: 10px;
+    transform: translate(0, 5%);
+}
+
+#avancerat {
+    width: 100%;
+    border-top: 2px solid #0000;
+    height: 0px;
+    transition: 0.3s;
+    overflow: hidden;
+}
+
+#showMoreLess {
+    text-align: center;
+    font-weight: 300;
+    cursor: pointer;
+    width: fit-content;
+    margin: auto;
+    opacity: 0.6;
+}
+#showMoreLess:hover {
+    opacity: 1;
+}
+
+.checkbox-container {
+    display: block;
+    position: relative;
+    padding-left: 25px;
+    cursor: pointer;
+    -webkit-user-select: none;
+    -moz-user-select: none;
+    -ms-user-select: none;
+    user-select: none;
+}
+
+.checkbox-container input {
+    position: absolute;
+    opacity: 0;
+    cursor: pointer;
+    height: 0;
+    width: 0;
+}
+
+.checkmark {
+    position: absolute;
+    top: 0;
+    left: 0;
+    height: 1.2em;
+    width: 1.2em;
+    background-color: #eee;
+    border-radius: 5px;
+    padding: 2px;
+}
+
+.checkbox-container:hover input~.checkmark {
+    background-color: #ccc;
+}
+
+.checkbox-container input:checked~.checkmark {
+    background-color: #13BD75;
+}
+
+.checkmark:after {
+    content: "";
+    position: absolute;
+    display: none;
+}
+
+.checkbox-container input:checked~.checkmark:after {
+    display: block;
+}
+
+.checkbox-container .checkmark:after {
+    left: 5px;
+    top: 2px;
+    width: 5px;
+    height: 9px;
+    border: solid white;
+    border-width: 0 3px 3px 0;
+    border-radius: 1px;
+    -webkit-transform: rotate(45deg);
+    -ms-transform: rotate(45deg);
+    transform: rotate(45deg);
+}
+
+.courses {
+    margin: 50px 0;
+}
+
+table {
+    width: 100%;
+    border-collapse: collapse;
+}
+
+tbody {
+    font-size: 0.8em;
+}
+
+.course {
+    height: 40px;
+    box-shadow: var(--std-shadow);
+}
+
+tr {
+    border-radius: 5px;
+}
+
+tr>td {
+    padding-bottom: 1em;
+}
+
+tbody:before {
+    line-height: 4px;
+    content: "-";
+    color: white;
+    display: block;
+}
+
+tbody td {
+    padding: 5px;
+    min-width: 50px;
+}
+
+td.grey {
+    background: #f1f1f1;
+}
+
+td select {
+    border: none;
+    font-size: 1em;
+    text-align: center;
+    margin: auto;
+    display: block;
+    margin: 0 auto;
+    padding: 0;
+    background-color: white;
+}
+
+td a {
+    color: black;   
+}
+
+td select.grey {
+    background-color: #f1f1f1;
+}
+
+.kursnamn:hover {
+    cursor: pointer;
+    text-decoration: underline;
+}
+
+.saknas {
+    background-color: #FDD7D8;
+    color: #DF0A0A;
+}
+
+.saknas-light {
+    background-color: #FFEAEB;
+    color: #DF0A0A;
+}
+
+.spacer {
+    height: 10px;
+    background: transparent;
+}
+
+.warning {
+    color: #DF0A0A;
+}
+
+.good {
+    color: #11AE6B;
+}
+
+::-webkit-scrollbar {
+    -webkit-appearance: none;
+    width: 10px;
+}
+::-webkit-scrollbar-thumb {
+    border-radius: 5px;
+    background-color: rgba(0,0,0,.5);
+    -webkit-box-shadow: 0 0 1px rgba(255,255,255,.5);
+}

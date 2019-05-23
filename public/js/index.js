@@ -5,17 +5,44 @@ server.on("initialize", function (data) {
     console.log(data);
 });
 
+var valdProgramkod = "alla";
+var valdLasar = "alla";
+var valdPeriod = "alla";
+var noKursrapport = false;
+var noKursvardering = false;
+
+$(document).ready(function(){
+    $("#program").change(function(){
+        valdProgramkod = $(this).children("option:selected").val();
+    });
+    $("#lasar").change(function(){
+        valdLasar = $(this).children("option:selected").val();
+    });
+    $("#period").change(function(){
+        valdPeriod = $(this).children("option:selected").val();
+    });
+});
+
 function searchCourse() {
     let text = $('#searchBox').val();
-    //console.log(text);
+    noKursrapport = $('#noKursrapport').is(':checked');
+    noKursvardering = $('#noKursvardering').is(':checked');
 
-    //makeCourses(kursdata);
+    let searchObj = {
+        text: text,
+        noKursrapport: noKursrapport,
+        noKursvardering: noKursvardering,
+        valdProgramkod: valdProgramkod,
+        valdLasar: valdLasar,
+        valdPeriod: valdPeriod
+    }
 
-    if (text.length < 3) {
+    if (valdProgramkod == "alla" && text.length < 3) {
         alert('Ange en längre sökterm!');
     } else {
         modal.style.display = "block";
-        server.emit('search', text);
+        server.emit('search', searchObj);
+
         server.on('searchResult', data => {
             modal.style.display = "none";
 
@@ -135,6 +162,8 @@ function createRow(kurskod, namn, years, periods) {
     svar.innerHTML = Math.floor(Math.random() * 100) + '%';
     tr.appendChild(svar);
 
+    var ok = true;
+
     var kursvard = document.createElement('td');
     var kursvardSaknas = Math.random() < 0.5;
     if (kursvardSaknas) {
@@ -145,6 +174,7 @@ function createRow(kurskod, namn, years, periods) {
         a.innerHTML = 'Kursvärd_' + kortNamn + '.pdf';
         a.setAttribute('href', 'http://mingodamat.se');
         kursvard.appendChild(a);
+        if (noKursvardering) ok = false;
     }
     tr.appendChild(kursvard);
 
@@ -159,6 +189,7 @@ function createRow(kurskod, namn, years, periods) {
         a.setAttribute('href', 'http://mingodamat.se');
         kursrapport.appendChild(a);
         kursrapport.setAttribute('class', 'grey');
+        if (noKursrapport) ok = false;
     }
     tr.appendChild(kursrapport);
 
@@ -187,11 +218,12 @@ function createRow(kurskod, namn, years, periods) {
     }
     tr.appendChild(godkandAndel);
 
-    tbody.appendChild(tr);
-
-    var spacer = document.createElement('tr');
-    spacer.setAttribute('class', 'spacer');
-    tbody.appendChild(spacer);
+    if (ok) {
+        tbody.appendChild(tr);
+        var spacer = document.createElement('tr');
+        spacer.setAttribute('class', 'spacer');
+        tbody.appendChild(spacer);
+    }
 }
 
 function navigate(kurskod, namn) {
@@ -204,7 +236,7 @@ var moreORless = -1;
 function doAvancerat()
 {
     if (moreORless < 0) {
-        $('#avancerat').css('height', '250px');
+        $('#avancerat').css('height', '220px');
         $('#avancerat').css("border-color", "#d8d8d8");
         $("#moreORless").css("transform", "rotate(-180deg)");
         $(".searchbox").css("width", "100%")
