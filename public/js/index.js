@@ -5,22 +5,41 @@ server.on("initialize", function (data) {
     console.log(data);
 });
 
+$('body').keypress(function (e) {
+    if (e.which == 13) {
+        searchCourse();
+    }
+});
+
 var valdProgramkod = "alla";
 var valdLasar = "alla";
 var valdPeriod = "alla";
 var noKursrapport = false;
 var noKursvardering = false;
+var courseGradeLow = 0;
+var couseGradeHigh = 5;
 
-$(document).ready(function(){
-    $("#program").change(function(){
+$(document).ready(function () {
+    $("#program").change(function () {
         valdProgramkod = $(this).children("option:selected").val();
     });
-    $("#lasar").change(function(){
+    $("#lasar").change(function () {
         valdLasar = $(this).children("option:selected").val();
     });
-    $("#period").change(function(){
+    $("#period").change(function () {
         valdPeriod = $(this).children("option:selected").val();
     });
+});
+
+$("#slider").slider({
+    range: true,
+    min: 0,
+    max: 5,
+    values: [courseGradeLow, couseGradeHigh],
+    slide: (event, ui) => {
+        courseGradeLow = ui.values[0];
+        courseGradeHigh = ui.values[1];
+    }
 });
 
 function searchCourse() {
@@ -233,8 +252,7 @@ function navigate(kurskod, namn) {
 }
 
 var moreORless = -1;
-function doAvancerat()
-{
+function doAvancerat() {
     if (moreORless < 0) {
         $('#avancerat').css('height', '220px');
         $('#avancerat').css("border-color", "#d8d8d8");

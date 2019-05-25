@@ -6,6 +6,7 @@
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+    <script src="https://code.jquery.com/ui/1.12.1/jquery-ui.js"></script>
 
     <!-- FIREBASE -->
     <script src="https://www.gstatic.com/firebasejs/6.0.0/firebase-app.js"></script>
@@ -28,13 +29,17 @@
 
 
     <script src="/socket.io/socket.io.js"></script>
-    <script src="js/checkLoggedIn.js" defer></script>
+    <script src="js/checkLoggedIn.js"></script>
     <script src="js/index.js" defer></script>
     <script src="js/global.js"></script>
+
+
+  <link rel="stylesheet" href="//code.jquery.com/ui/1.12.1/themes/base/jquery-ui.css">
 
     <link rel="stylesheet" href="css/global.css">
     <link rel="stylesheet" href="css/index.css">
     <link rel="stylesheet" href="css/modal.css">
+    <link rel="stylesheet" href="css/slider.css">
 </head>
 
 <body>
@@ -113,23 +118,23 @@
                             <option value="4">4</option>
                         </select>
                     </div><div class="searchboxbox">
-                    <p>Taggar</p>
-                    <div id="taggRuta" style="overflow: auto;
-                            height: 120px;
-                            padding-bottom: 10px">
-                        <span class="taggar">Hemtenta</span>
-                        <span class="taggar">Studium</span>
-                        <span class="taggar">Flipped classroom</span>
-                        <span class="taggar">Hemtenta</span>
-                        <span class="taggar">Studium</span>
-                        <span class="taggar">Flipped classroom</span>
-                    </div>
-                </div><div class="searchboxbox">
-                    <br>
-                    <br>
-                    <br>
-                    <br>
-                    <br>
+                        <p>Taggar</p>
+                        <div id="taggRuta" style="overflow: auto;
+                                height: 120px;
+                                padding-bottom: 10px">
+                            <span class="taggar">Hemtenta</span>
+                            <span class="taggar">Studium</span>
+                            <span class="taggar">Flipped classroom</span>
+                            <span class="taggar">Hemtenta</span>
+                            <span class="taggar">Studium</span>
+                            <span class="taggar">Flipped classroom</span>
+                        </div>
+                    </div><div class="searchboxbox">
+                        <p>Kursomdöme</p>
+                        <div class="numbers">
+                            <span>0</span><span>1</span><span>2</span><span>3</span><span>4</span><span>5</span>
+                        </div>
+                        <div id="slider"></div>
                 </div>
             </div>
         </div>

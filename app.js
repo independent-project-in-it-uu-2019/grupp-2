@@ -51,7 +51,7 @@ function populatekurskoder() {
             })
             .catch(function (err) {
                 //handle error
-                //console.log(err);
+                console.log(err);
             });
     }
 }

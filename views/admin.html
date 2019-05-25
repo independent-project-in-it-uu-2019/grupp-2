@@ -1,13 +1,66 @@
 <!DOCTYPE html>
 <html>
-    <head>
-        <title>Dunderhonung</title>
-        <meta charset="utf-8">
-        <meta name="viewport" content="width=device-width, initial-scale=1">
-        <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
-        <link rel="stylesheet" href="css/global.css">
-    </head>
-    <body>
-        admin
-    </body>
+
+<head>
+    <title>Dunderhonung</title>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+
+    <!-- FIREBASE -->
+    <script src="https://www.gstatic.com/firebasejs/6.0.0/firebase-app.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/6.0.0/firebase-auth.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/6.0.0/firebase-firestore.js"></script>
+    <script>
+        var firebaseConfig = {
+            apiKey: "AIzaSyBZkSEzQz2epJIubGdMWuJ8ZqRQX72JDAk",
+            authDomain: "kand-a58c2.firebaseapp.com",
+            databaseURL: "https://kand-a58c2.firebaseio.com",
+            projectId: "kand-a58c2",
+            storageBucket: "kand-a58c2.appspot.com",
+            messagingSenderId: "723755140632",
+            appId: "1:723755140632:web:7e8730024bc17831"
+        };
+
+        // Initialize Firebase
+        firebase.initializeApp(firebaseConfig);
+    </script>
+
+    <script src="js/checkLoggedIn.js" defer></script>
+
+    <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+    <link rel="stylesheet" href="css/global.css">
+    <link rel="stylesheet" href="css/admin.css">
+</head>
+
+<body>
+    <div class="border">
+        <div class="wrapper">
+            <div class="leftAlign">
+                <h2>Uppsala Universitet</h2>
+            </div>
+            <div class="rightAlign">
+                <h3 class="user"></h3>
+                <button class="loginout" onclick="logout()">Logga ut</button>
+            </div>
+        </div>
+    </div>
+    <div class="titleWrapper">
+        <div class="wrapper">
+            <a href="/" class="goback dark-grey">
+                <span>
+                    <i class="material-icons back-icon">arrow_back_ios</i>
+                </span>
+                Avbryt
+            </a>
+            <div class="title">Test</div>
+        </div>
+    </div>
+    <div class="section">
+        <p>Sök kurs</p>
+        <input id="searchBox" type="text" placeholder="Namn eller kurskod">
+        <button class="search-button" onclick="searchCourse()"> Sök <img src="img/search.png" /></button>
+    </div>
+</body>
+
 </html>

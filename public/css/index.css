@@ -105,6 +105,7 @@
     margin: auto;
     opacity: 0.6;
 }
+
 #showMoreLess:hover {
     opacity: 1;
 }
@@ -224,7 +225,7 @@ td select {
 }
 
 td a {
-    color: black;   
+    color: black;
 }
 
 td select.grey {
@@ -263,8 +264,9 @@ td select.grey {
     -webkit-appearance: none;
     width: 10px;
 }
+
 ::-webkit-scrollbar-thumb {
     border-radius: 5px;
-    background-color: rgba(0,0,0,.5);
-    -webkit-box-shadow: 0 0 1px rgba(255,255,255,.5);
+    background-color: rgba(0, 0, 0, .5);
+    -webkit-box-shadow: 0 0 1px rgba(255, 255, 255, .5);
 }
