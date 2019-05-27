@@ -8,7 +8,7 @@
     justify-content: space-between;
 }
 
-.ui-slider .ui-slider-handle {
+.ui-slider .ui-slider-handle {  
     box-shadow: 0 0 10px #d8d8d833;
     border-radius: 1.1em;
     border: 1px solid #d8d8d8;
