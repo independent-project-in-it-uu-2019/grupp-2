@@ -39,15 +39,22 @@ function populatekurskoder() {
             .then((html) => {
 
                 //success!
-                const courses = [];
+                const courses = {};
                 var html = c('ul.semesterContent > li > a', html);
+
                 for (let i = 0; i < html.length; i++) {
                     let str = html[i].children[0].data;
+                    let name = str.split(/(\d+)/)[0];
+                    name = name.slice(1, name.length - 2);
+                    //console.log(name);
                     let slices = str.split("(");
-                    let code = slices[slices.length-1].slice(0, 6);
-                    courses.push(code);
+                    let kurskod = slices[slices.length - 1].slice(0, 6);
+                    courses[kurskod] = {
+                        namn: name
+                    };
                 }
                 kurskoder[kurs] = courses;
+                //console.log(kurskoder);
             })
             .catch(function (err) {
                 //handle error
@@ -59,26 +66,23 @@ function populatekurskoder() {
 populatekurskoder();
 
 function filterProgram(programCode) {
-    let coursecodes = kurskoder[programCode];
     let res = {};
 
-    for (let i = 0; i < coursecodes.length; i++) {
-        if (coursecodes[i] in selmaSearchResult) {
-            res[coursecodes[i]] = selmaSearchResult[coursecodes[i]];
+    for (let kurs in kurskoder[programCode]) {
+        if (kurs in selmaSearchResult) {
+            res[kurs] = selmaSearchResult[kurs];
         }
     }
     selmaSearchResult = res;
+
 }
 
 function filterLasar(year1, year2) {
-    console.log(year1 + " " + year2);
     let res = {};
 
     for (let kurs in selmaSearchResult) {
         let years = getYears(selmaSearchResult[kurs].startvecka);
         let periods = getPeriods(selmaSearchResult[kurs].startvecka);
-        console.log(years);
-        console.log(periods);
 
         if (years.includes(year1) && (periods.includes("1") || periods.includes("2"))) {
             res[kurs] = selmaSearchResult[kurs];
@@ -110,12 +114,21 @@ io.on('connection', function (socket) {
         let noKursvardering = data.noKursvardering;
         let lasar = data.valdLasar.split("/");
         let period = data.valdPeriod;
-        
+
         if (text.length > 2) {
             selmaSearchResult = await getKursplan(text, '');
         } else {
             //Special case om man vill se alla kurser på ett program utan att
             //söka med en text, alternativt söka på 1 eller 2 bokstäver
+            if (programKod.length > 0) {
+                socket.emit('searchResult', kurskoder[programKod]);
+                return;
+            }
+        }
+
+        if (selmaSearchResult == null) {
+            socket.emit('searchResult', selmaSearchResult);
+            return;
         }
 
         if (programKod != "alla") {
@@ -149,7 +162,7 @@ function getKursplan(benamning, kurskod) {
     console.log('Searching...');
 
     /*TODO - kolla om benamning ser ut som kurskod och lös*/
-    
+
     return new Promise(function (resolve, reject) {
 
         soap.createClient(apiWSDL, (err, client) => {

@@ -64,6 +64,7 @@ function searchCourse() {
 
         server.on('searchResult', data => {
             modal.style.display = "none";
+            console.log(data);
 
             if (data != null) {
                 makeCourses(data);
@@ -80,9 +81,21 @@ function makeCourses(data) {
     for (kurs in data) {
         let kurskod = kurs;
         let namn = data[kurs].namn;
-        let years = getYears(data[kurs].startvecka);
-        let periods = getPeriods(data[kurs].startvecka);
-
+        if (data[kurs].startvecka) {
+            var years = getYears(data[kurs].startvecka);
+            var periods = getPeriods(data[kurs].startvecka);
+        } else {
+            let nrOfYears = Math.floor(Math.random() * 5) + 1;
+            var startvecka = [];
+            for (let i = 0; i < nrOfYears; i++) {
+                let year = 201500 + (Math.floor(Math.random() * 3) * 100);
+                let week = Math.floor(Math.random() * 52);
+                startWeek = year + week;
+                startvecka.push(startWeek + '');
+            }
+            var years = getYears(startvecka);
+            var periods = getPeriods(startvecka);
+        }
         createRow(kurskod, namn, years, periods);
     }
 }
@@ -124,6 +137,8 @@ function getPeriods(startvecka) {
 }
 
 function createRow(kurskod, namn, years, periods) {
+    console.log(kurskod, namn, years, periods);
+
     var kortNamn = namn.slice(0, 6);
 
     var tbody = document.getElementById('tbody');
