@@ -172,7 +172,7 @@
 }
 
 .courses {
-    margin: 50px 0;
+    margin: 50px auto;
 }
 
 table {
@@ -195,6 +195,10 @@ tr {
 
 tr>td {
     padding-bottom: 1em;
+}
+
+thead>tr>td {
+    padding-right: 30px;
 }
 
 tbody:before {
@@ -232,9 +236,30 @@ td select.grey {
     background-color: #f1f1f1;
 }
 
+.kursnamn {
+    max-width: 300px;
+    min-width: 200px;
+}
+
 .kursnamn:hover {
     cursor: pointer;
     text-decoration: underline;
+}
+
+.period {
+    /* max-width: 80px; */
+}
+
+.year {
+    max-width: 120px;
+}
+
+.svar {
+    min-width: 100px;
+}
+
+.godkandAndel {
+    min-width: 140px;
 }
 
 .saknas {

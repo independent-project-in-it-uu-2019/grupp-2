@@ -153,7 +153,7 @@ function createRow(kurskod, namn, years, periods) {
     tr.appendChild(kursnamn);
 
     var period = document.createElement('td');
-    period.setAttribute('class', 'grey center');
+    period.setAttribute('class', 'grey center period');
 
     if (periods.length > 1) {
         var selectPeriod = document.createElement('select');
@@ -172,7 +172,7 @@ function createRow(kurskod, namn, years, periods) {
     tr.appendChild(period);
 
     var year = document.createElement('td');
-    year.setAttribute('class', 'white center');
+    year.setAttribute('class', 'white center year');
 
     if (years.length > 1) {
         var selectYear = document.createElement('select');
@@ -192,7 +192,7 @@ function createRow(kurskod, namn, years, periods) {
     tr.appendChild(year);
 
     var svar = document.createElement('td');
-    svar.setAttribute('class', 'grey center');
+    svar.setAttribute('class', 'grey center svar');
     svar.innerHTML = Math.floor(Math.random() * 100) + '%';
     tr.appendChild(svar);
 
@@ -245,12 +245,16 @@ function createRow(kurskod, namn, years, periods) {
     var godkandAndelSaknas = Math.random() < 0.2;
     if (godkandAndelSaknas) {
         godkandAndel.innerHTML = 'Saknas';
-        godkandAndel.setAttribute('class', 'saknas center');
+        godkandAndel.setAttribute('class', 'saknas center godkandAndel');
     } else {
         godkandAndel.innerHTML = Math.floor(Math.random() * 100) + '%';
         godkandAndel.setAttribute('class', 'grey center');
     }
     tr.appendChild(godkandAndel);
+
+    var taggar = document.createElement('td');
+    taggar.setAttribute('class', 'white, taggar');
+    tr.appendChild(taggar);
 
     if (ok) {
         tbody.appendChild(tr);
