@@ -26,11 +26,14 @@
         firebase.initializeApp(firebaseConfig);
     </script>
 
+    <script src="/socket.io/socket.io.js"></script>
     <script src="js/checkLoggedIn.js" defer></script>
+    <script src="js/admin.js" defer></script>
 
     <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
     <link rel="stylesheet" href="css/global.css">
     <link rel="stylesheet" href="css/admin.css">
+    <link rel="stylesheet" href="css/modal.css">
 </head>
 
 <body>
@@ -53,13 +56,121 @@
                 </span>
                 Avbryt
             </a>
-            <div class="title">Test</div>
+            <div class="title">Redigera kursinformation</div>
         </div>
     </div>
-    <div class="section">
-        <p>Sök kurs</p>
-        <input id="searchBox" type="text" placeholder="Namn eller kurskod">
-        <button class="search-button" onclick="searchCourse()"> Sök <img src="img/search.png" /></button>
+    <div class="wrapper">
+        <div>
+            <div class="searchboxbox" style="margin: auto; width: 400px; display: block;">
+                <p>Sök kurs</p>
+                <input id="searchBox" type="text" placeholder="Namn eller kurskod">
+                <button class="search-button" onclick="searchCourse()"> Sök <img src="img/search.png" /></button>
+            </div>
+        </div>
+        <div class="section search-results-wrapper" style="display: none">
+            <div onclick="toggleResults()" id="showMoreLess">
+                <div style="display: inline-block; margin-bottom: 10px;" id="toggle"></div>
+                <i class="material-icons" id="moreORless"
+                    style="display: inline-block; transition: 0.3s; vertical-align: middle;">
+                    keyboard_arrow_down
+                </i>
+            </div>
+            <div class="search-results"></div>
+        </div>
+        <div class="form" style="display: none">
+            <div class="section">
+                <p id="courseTitle" class="title underline course-name"></p>
+                <img class="edit-icon" src="img/x_red.png" onclick="toggleResults('close')"/>
+            </div>
+            <div class="section date-select">
+                <div class="block">
+                    <p class="bold-text">Läsår</p>
+                    <select class="dropdown" id="year"></select>
+                </div>
+                <div class="block">
+                    <p class="bold-text">Läsperiod</p>
+                    <select class="dropdown" id="period"></select>
+                </div>
+                <div class="divider"></div>
+            </div>
+            <div class="section">
+                <div class="block">
+                    <p class="bold-text">Kursvärdering</p>
+                    <button class="button">Ladda upp <img src="img/upload.png" /></button>
+                </div>
+                <div class="block">
+                    <p class="bold-text">Kursrapport</p>
+                    <button class="button">Ladda upp <img src="img/upload.png" /></button>
+                </div>
+            </div>
+            <div class="section">
+                <div class="block">
+                    <p class="bold-text">Genomsnittligt omdömesbetyg</p>
+                    <input type="number">
+                </div>
+            </div>
+            <div class="section">
+                <div class="block">
+                    <p class="bold-text">Antal registrerade</p>
+                    <input type="number">
+                </div>
+                <div class="block">
+                    <p class="bold-text">Antal som kursvärderat</p>
+                    <input type="number">
+                </div>
+            </div>
+            <div class="section">
+                <div class="block">
+                    <p class="bold-text">Tentamensresultat</p>
+                    <p>
+                        <label class="checkbox-container checkbox-label" style="margin-top: 20px">
+                            Endast godkänd/icke godkänd
+                            <input type="checkbox" id="noKursrapport">
+                            <span class="checkmark"></span>
+                        </label>
+                    </p>
+                </div>
+                <div style="display: block; width: 800px; margin-top: 20px" class="block">
+                    <div class="bold-text" style="display: inline-block">Antal</div>
+                    <div class="grade-box">
+                        <p class="bold-text">Treor</p>
+                        <input type="number">
+                    </div>
+                    <div class="grade-box">
+                        <p class="bold-text">Fyror</p>
+                        <input type="number">
+                    </div>
+                    <div class="grade-box">
+                        <p class="bold-text">Femmor</p>
+                        <input type="number">
+                    </div>
+                </div>
+            </div>
+            <div class="section">
+                <p class="bold-text">Taggar</p>
+                <div class="divider"></div>
+                <div class="selected-tags">
+                    <p class="dark-grey">Rensa alla</p>
+                    <span class="tag">Hemtenta <img src="img/x_red.png" /></span>
+                </div>
+                <div class="available-tags">
+                    <span class="tag">Hemtenta <img src="img/+_green.png" /></span>
+                    <span class="tag">Hemtenta <img src="img/+_green.png" /></span>
+                    <span class="tag">Hemtenta <img src="img/+_green.png" /></span>
+                </div>
+            </div>
+            <div class="section" style="padding-bottom: 5%">
+                <button class="search-button" style="float: left;">Spara</button>
+            </div>
+        </div>
+    </div>
+
+    <!-- The Modal -->
+    <div id="modal" class="modal">
+        <!-- Modal content -->
+        <div class="modal-content">
+            <p>Söker...</p>
+        </div>
     </div>
 </body>
 
