@@ -100,27 +100,32 @@
     font-size: 0.9em;
 }
 
-.selected-tags {
-    display: inline-block;
+#selected-tags {
+    float: left;
     height: 200px;
     width: 300px;
-    margin: 20px 0;
     border-right: 1px solid #d8d8d8;
+    margin-top: 20px;
+    overflow: auto;
 }
 
-.selected-tags>p {
+.clear-tags {
     font-size: 0.9em;
     width: 70px;
+    margin-top: 10px;
 }
 
-.selected-tags>p:hover {
+.clear-tags:hover {
     text-decoration: underline;
     cursor: pointer;
 }
 
-.available-tags {
+#available-tags {
     margin: 20px 50px;
     display: inline-block;
+    max-width: 350px;
+    height: 200px;
+    overflow: auto;
 }
 
 .tag {

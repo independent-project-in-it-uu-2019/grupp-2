@@ -149,18 +149,14 @@
             <div class="section">
                 <p class="bold-text">Taggar</p>
                 <div class="divider"></div>
-                <div class="selected-tags">
-                    <p class="dark-grey">Rensa alla</p>
-                    <span class="tag">Hemtenta <img src="img/x_red.png" /></span>
+                <p class="dark-grey clear-tags" onclick="clearAllTags()">Rensa alla</p>
+                <div id="selected-tags">
                 </div>
-                <div class="available-tags">
-                    <span class="tag">Socrative <img src="img/+_green.png" /></span>
-                    <span class="tag">Flipped classroom <img src="img/+_green.png" /></span>
-                    <span class="tag">Socrative <img src="img/+_green.png" /></span>
+                <div id="available-tags">
                 </div>
             </div>
             <div class="section" style="padding-bottom: 5%">
-                <button class="search-button" style="float: left;">Spara</button>
+                <button onclick="save()" class="search-button" style="float: left;">Spara</button>
             </div>
         </div>
     </div>

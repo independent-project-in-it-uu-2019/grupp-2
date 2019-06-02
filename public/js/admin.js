@@ -16,6 +16,7 @@ $(document).ready(() => {
         $(".form").css('display', 'block');
         $("#courseTitle").html(selectedCourse);
     }
+    makeTags();
 });
 
 $('body').keypress(e => {
@@ -168,4 +169,87 @@ function selectCourse(course) {
         o.innerHTML = years[i];
         selectYear.appendChild(o);
     }
+}
+
+var availableTags = [
+    'Studium',
+    'Hemtenta',
+    'Flipped classroom',
+    'Socrative',
+    'Annan tagg',
+    'Bla bla bla',
+    'Morötter',
+    'Bananer',
+    'Brandbilar',
+    'Delfiner',
+    'Maskrosor',
+    'Fotbollar',
+    'Kottar'
+];
+
+var selectedTags = [];
+function makeTags() {
+    var availableTagsDiv = document.getElementById('available-tags');
+    $('#available-tags').html('');
+
+    for (let i = 0; i < availableTags.length; i++) {
+        let tag = document.createElement('span');
+        tag.setAttribute('class', 'tag');
+        tag.innerHTML = availableTags[i];
+        tag.setAttribute('onclick', 'moveTag("' + availableTags[i] + '")');
+
+        let img = document.createElement('img');
+        img.setAttribute('src', 'img/+_green.png');
+
+        tag.appendChild(img);
+        availableTagsDiv.appendChild(tag);
+    }
+
+    var selectedTagsDiv = document.getElementById('selected-tags');
+    $('#selected-tags').html('');
+
+    for (let i = 0; i < selectedTags.length; i++) {
+        let tag = document.createElement('span');
+        tag.setAttribute('class', 'tag');
+        tag.innerHTML = selectedTags[i];
+        tag.setAttribute('onclick', 'moveTag("' + selectedTags[i] + '")');
+
+        let img = document.createElement('img');
+        img.setAttribute('src', 'img/x_red.png');
+
+        tag.appendChild(img);
+        selectedTagsDiv.appendChild(tag);
+    }
+}
+
+function moveTag(tag) {
+    if (availableTags.includes(tag)) {
+        availableTags.map((t, i) => {
+            if (t == tag) {
+                availableTags.splice(i, 1);
+                selectedTags.push(tag);
+            }
+        });
+    } else {
+        selectedTags.map((t, i) => {
+            if (t == tag) {
+                selectedTags.splice(i, 1);
+                availableTags.push(tag);
+            }
+        });
+    }
+    makeTags();
+}
+
+function clearAllTags() {
+    selectedTags.map(t => {
+        availableTags.push(t);
+    });
+    selectedTags = [];
+    makeTags();
+}
+
+function save() {
+    alert('Sparat!');
+    location.reload();
 }
