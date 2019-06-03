@@ -52,6 +52,7 @@
             <div class="rightAlign">
                 <h3 class="user"></h3>
                 <button class="loginout" onclick="logout()">Logga ut</button>
+                <button class="upload" onclick="location.href='/admin'">Ladda upp dokument <img src="img/upload_black.png" /></button>
             </div>
         </div>
     </div>
@@ -68,7 +69,7 @@
                 </div>
             </div>
             <div id="avancerat">
-                <div class="searchboxbox">
+                <div class="searchboxbox student">
                     <p>Program</p>
                     <select id="program">
                         <option value="alla">Alla</option>
@@ -85,23 +86,7 @@
                         <option value="TME1Y">Hög. i medicinteknik (MT)</option>
                         <option value="TDV1K">Kand. i datavetenskap (DV)</option>
                     </select>
-                    <div class="checkboxes">
-                        <p>
-                            <label class="checkbox-container">
-                                Saknar kursrapport
-                                <input type="checkbox" id="noKursrapport">
-                                <span class="checkmark"></span>
-                            </label>
-                        </p>
-                        <p>
-                            <label class="checkbox-container">
-                                Saknar kursvärdering
-                                <input type="checkbox" id="noKursvardering">
-                                <span class="checkmark"></span>
-                            </label>
-                        </p>
-                    </div>
-                </div><div class="searchboxbox">
+                </div><div class="searchboxbox student">
                         <p>Läsår</p>
                         <select id=lasar>
                             <option value="alla">Visa senaste</option>
@@ -118,7 +103,7 @@
                             <option value="3">3</option>
                             <option value="4">4</option>
                         </select>
-                    </div><div class="searchboxbox">
+                    </div><div class="searchboxbox student">
                         <p>Taggar</p>
                         <div id="taggRuta" style="overflow: auto;
                                 height: 120px;
@@ -130,12 +115,28 @@
                             <span class="taggar">Studium</span>
                             <span class="taggar">Flipped classroom</span>
                         </div>
-                    </div><div class="searchboxbox">
+                    </div><div class="searchboxbox rektor">
                         <p>Kursomdöme</p>
                         <div class="numbers">
                             <span>0</span><span>1</span><span>2</span><span>3</span><span>4</span><span>5</span>
                         </div>
                         <div id="slider"></div>
+                        <div class="checkboxes">
+                            <p>
+                                <label class="checkbox-container">
+                                    Saknar kursrapport
+                                    <input type="checkbox" id="noKursrapport">
+                                    <span class="checkmark"></span>
+                                </label>
+                            </p>
+                            <p>
+                                <label class="checkbox-container">
+                                    Saknar kursvärdering
+                                    <input type="checkbox" id="noKursvardering">
+                                    <span class="checkmark"></span>
+                                </label>
+                            </p>
+                        </div>
                 </div>
             </div>
         </div>
@@ -155,7 +156,7 @@
                     </tr>
                 </thead>
                 <tbody id="tbody">
-                    <tr class="course">
+                    <!--tr class="course">
                         <td class="white kursnamn">Kursnamn</td>
                         <td class="period grey">
                             <select class="grey">
@@ -179,7 +180,7 @@
                         <td class="white">Kursomdöme</td>
                         <td class="grey godkandAndel">Andel godkända</td>
                         <td class="white">Taggar</td>
-                    </tr>
+                    </tr-->
                 </tbody>
             </table>
         </div>

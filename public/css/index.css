@@ -59,7 +59,7 @@
 }
 
 table {
-    width: 100%;
+    width: 95%;
     border-collapse: collapse;
 }
 
@@ -93,7 +93,6 @@ tbody:before {
 
 tbody td {
     padding: 5px;
-    min-width: 50px;
 }
 
 td.grey {
@@ -142,7 +141,7 @@ td select.grey {
 }
 
 .godkandAndel {
-    min-width: 140px;
+    /* min-width: 140px; */
 }
 
 .saknas {

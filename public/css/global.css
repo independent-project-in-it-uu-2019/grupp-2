@@ -85,12 +85,20 @@ h3 {
     cursor: pointer;
     float: right;
     height: var(--border-height);
-    ;
     padding: 0 20px;
 }
 
 .border button:hover {
     text-decoration: underline;
+}
+
+.upload {
+    font-weight: 700;
+}
+
+.upload>img {
+    height: 12px;
+    margin-left: 10px;
 }
 
 .wrapper {

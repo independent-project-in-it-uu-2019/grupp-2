@@ -282,8 +282,26 @@ function createKursvarderatChart() {
     });
 }
 
+function createReports() {
+    $(".list-title").append(" (2009 - 2018)");
+}
 
+function createProgressbars() {
+    let progress1 = Math.floor(Math.random() * 100);
+    $("#progress-title-1").append(progress1 + ' %');
+    $("#progress-1").css('width', progress1 + '%');
+
+    let progress2 = Math.floor(Math.random() * 100);
+    let grade = Math.round((progress2 / 25 + 1) * 10) / 10;
+    $("#progress-title-2").append(grade);
+    $("#progress-2").css('width', progress2 + '%');
+}
+
+createProgressbars();
 createAntalSvarChart();
 createBetygsChart();
 createNojdChart();
 createKursvarderatChart();
+createReports();
+
+

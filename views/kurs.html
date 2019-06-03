@@ -36,6 +36,7 @@
     <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
     <link rel="stylesheet" href="css/global.css">
     <link rel="stylesheet" href="css/kurs.css">
+    <link rel="stylesheet" href="css/slider.css">
 </head>
 
 <body>
@@ -61,8 +62,9 @@
             <div class="title underline" id="kursnamn"></div>
         </div>
     </div>
+
     <div class="wrapper">
-        <div class="block">
+        <div class="section">
             <h2>Senaste gången kursen gavs (2017/2018 period 2)</h2>
             <div class="title-underline grey" style="width: 458px;"></div>
             <div class="cards-wrapper">
@@ -76,16 +78,43 @@
                         </div>
                     </div>
                 </div>
+                <div class="small-cards-wrapper">
+                    <div class="small-card shadow">
+                        <div class="card-header light-grey">
+                            <h4 class="dark-grey">Andel godkända efter 1 år</h4>
+                            <div class="progress-wrapper">
+                                <div id="progress-title-1" class="dark-grey"></div>
+                                <div class="progress-background">
+                                    <div class="progress" id="progress-1"></div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="small-card shadow" style="height: 160px">
+                        <div class="card-header light-grey">
+                            <h4 class="dark-grey">Genomsnittligt omdömesbetyg</h4>
+                            <div class="progress-wrapper">
+                                <div id="progress-title-2" class="dark-grey"></div>
+                                <div class="progress-background">
+                                    <div class="progress" id="progress-2"></div>
+                                </div>
+                                <div class="numbers" style="color: #666; font-size: 0.9em">
+                                    <span>1</span><span>2</span><span>3</span><span>4</span><span>5</span>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
             </div>
         </div>
 
-        <div class="block">
+        <div class="section">
             <h2>Tidigare år (2012 - 2018)</h2>
             <div class="title-underline grey" style="width: 229px;"></div>
             <div class="cards-wrapper">
                 <div class="card shadow">
                     <div class="card-header light-grey">
-                        <h4 class="dark-grey">Betygsfördelning</h4>
+                        <div class="dark-grey card-title">Betygsfördelning</div>
                         <div class="chart-wrapper"
                             style="height: 70%; width: 70%; margin-left: auto; margin-right: auto">
                             <canvas id="betygsChart"></canvas>
@@ -97,7 +126,7 @@
             <div class="cards-wrapper">
                 <div class="card shadow">
                     <div class="card-header light-grey">
-                        <h4 class="dark-grey">Genomsnittligt nöjdhetsbetyg med kursen</h4>
+                        <div class="dark-grey card-title">Genomsnittligt nöjdhetsbetyg med kursen</div>
                         <div class="chart-wrapper"
                             style="height: 70%; width: 70%; margin-left: auto; margin-right: auto">
                             <canvas id="nojdChart"></canvas>
@@ -109,7 +138,7 @@
             <div class="cards-wrapper">
                 <div class="card shadow">
                     <div class="card-header light-grey">
-                        <h4 class="dark-grey">Andel registrerade studenter som kursvärderat</h4>
+                        <div class="dark-grey card-title">Andel registrerade studenter som kursvärderat</div>
                         <div class="chart-wrapper"
                             style="height: 70%; width: 70%; margin-left: auto; margin-right: auto">
                             <canvas id="kursvarderatChart"></canvas>
@@ -117,9 +146,72 @@
                     </div>
                 </div>
             </div>
-
-
         </div>
+
+        <div class="section">
+            <div class="course-reports">
+                <h2 class="list-title">Kursrapporter</h2>
+                <div class="list-subtitle">2018</div>
+                <div class="list-divider"></div>
+                <div class="list">
+                    <p>Kursrapport2018_period2.pdf</p>
+                    <p>Kursrapport2018_period1.pdf</p>
+                </div>
+                <div class="list-subtitle">2017</div>
+                <div class="list-divider"></div>
+                <div class="list">
+                    <p>Kursrapport2017_period2.pdf</p>
+                    <p>Kursrapport2017_period1.pdf</p>
+                </div>
+                <div class="list-subtitle">2016</div>
+                <div class="list-divider"></div>
+                <div class="list">
+                    <p>Kursrapport2016_period2.pdf</p>
+                    <p>Kursrapport2016_period1.pdf</p>
+                </div>
+                <div class="list-subtitle">2015</div>
+                <div class="list-divider"></div>
+                <div class="list">
+                    <p>Kursrapport2015_period2.pdf</p>
+                    <p>Kursrapport2015_period1.pdf</p>
+                </div>
+            </div>
+            <div class="course-evaluations">
+                <h2 class="list-title">Kursvärderingar</h2>
+                <div class="list-subtitle">2018</div>
+                <div class="list-divider"></div>
+                <div class="list">
+                    <p>Kursv_resultat2018_period2.pdf</p>
+                    <p>Kursv_resultat2018_period1.pdf</p>
+                </div>
+                <div class="list-subtitle">2017</div>
+                <div class="list-divider"></div>
+                <div class="list">
+                    <p>Kursv_resultat2017_period2.pdf</p>
+                    <p>Kursv_resultat2017_period1.pdf</p>
+                </div>
+                <div class="list-subtitle">2016</div>
+                <div class="list-divider"></div>
+                <div class="list">
+                    <p>Kursv_resultat2016_period2.pdf</p>
+                    <p>Kursv_resultat2016_period1.pdf</p>
+                </div>
+                <div class="list-subtitle">2015</div>
+                <div class="list-divider"></div>
+                <div class="list">
+                    <p>Kursv_resultat2015_period2.pdf</p>
+                    <p>Kursv_resultat2015_period1.pdf</p>
+                </div>
+            </div>
+            <br>
+            <br>
+            <br>
+            <br>
+            <br>
+            <br>
+            <br>
+        </div>
+    </div>
 
 
     </div>
