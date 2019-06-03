@@ -59,7 +59,7 @@
 }
 
 table {
-    width: 95%;
+    /*width: 95%;*/
     border-collapse: collapse;
 }
 
@@ -81,7 +81,7 @@ tr>td {
 }
 
 thead>tr>td {
-    padding-right: 30px;
+    padding-right: 15px;
 }
 
 tbody:before {
@@ -141,7 +141,21 @@ td select.grey {
 }
 
 .godkandAndel {
-    /* min-width: 140px; */
+    width: 100px;
+}
+
+.taggar {
+    position: relative;
+}
+
+.redigera {
+    position: absolute;
+    top: 12px;
+    right: -60px;
+}
+.redigera:hover {
+    text-decoration: underline;
+    cursor: pointer;
 }
 
 .saknas {

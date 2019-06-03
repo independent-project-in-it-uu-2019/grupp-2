@@ -64,7 +64,7 @@
             <div class="searchboxbox" style="margin: auto; width: 400px; display: block;">
                 <p>Sök kurs</p>
                 <input id="searchBox" type="text" placeholder="Namn eller kurskod">
-                <button class="search-button" onclick="searchCourse()"> Sök <img src="img/search.png" /></button>
+                <button class="search-button" onclick="searchCourse(undefined,undefined)"> Sök <img src="img/search.png" /></button>
             </div>
         </div>
         <div class="section search-results-wrapper" style="display: none">
@@ -125,12 +125,12 @@
                     <p>
                         <label class="checkbox-container checkbox-label" style="margin-top: 20px">
                             Endast godkänd/icke godkänd
-                            <input type="checkbox" id="noKursrapport">
+                            <input type="checkbox" id="noKursrapport" onclick="$('#betyg1').toggle();$('#betyg2').toggle();">
                             <span class="checkmark"></span>
                         </label>
                     </p>
                 </div>
-                <div style="display: block; width: 800px; margin-top: 20px" class="block">
+                <div id="betyg1" style="display: block; width: 800px; margin-top: 20px" class="block">
                     <div class="bold-text" style="display: inline-block">Antal</div>
                     <div class="grade-box">
                         <p class="bold-text">Treor</p>
@@ -142,6 +142,13 @@
                     </div>
                     <div class="grade-box">
                         <p class="bold-text">Femmor</p>
+                        <input type="number">
+                    </div>
+                </div>
+                <div id="betyg2" style="display: none; width: 800px; margin-top: 20px" class="block">
+                    <div class="bold-text" style="display: inline-block">Antal</div>
+                    <div class="grade-box">
+                        <p class="bold-text">Godkända</p>
                         <input type="number">
                     </div>
                 </div>

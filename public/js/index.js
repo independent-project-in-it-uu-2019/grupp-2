@@ -31,6 +31,8 @@ $(document).ready(function () {
     });
 });
 
+var courseGradeLow = 0;
+var courseGradeHigh = 5;
 $("#slider").slider({
     range: true,
     min: 0,
@@ -229,15 +231,20 @@ function createRow(kurskod, namn, years, periods) {
 
     var kursomdome = document.createElement('td');
     var kursomdometSaknas = Math.random() < 0.2;
+    let omdome = 0;
     if (kursomdometSaknas) {
         kursomdome.innerHTML = 'Saknas';
         kursomdome.setAttribute('class', 'saknas-light center');
     } else {
-        let omdome = Math.floor(Math.random() * 50) / 10;
+        omdome = Math.floor(Math.random() * 50) / 10;
         kursomdome.innerHTML = omdome;
         if (omdome < 2) kursomdome.setAttribute('class', 'warning center white');
         else if (omdome >= 4) kursomdome.setAttribute('class', 'good center white');
         else kursomdome.setAttribute('class', 'center white');
+    }
+    if (omdome > courseGradeHigh || omdome < courseGradeLow) {
+        ok = false;
+        console.log(omdome, courseGradeLow, courseGradeHigh);
     }
     tr.appendChild(kursomdome);
 
@@ -248,12 +255,20 @@ function createRow(kurskod, namn, years, periods) {
         godkandAndel.setAttribute('class', 'saknas center godkandAndel');
     } else {
         godkandAndel.innerHTML = Math.floor(Math.random() * 100) + '%';
-        godkandAndel.setAttribute('class', 'grey center');
+        godkandAndel.setAttribute('class', 'grey center godkandAndel');
     }
     tr.appendChild(godkandAndel);
 
     var taggar = document.createElement('td');
-    taggar.setAttribute('class', 'white, taggar');
+    taggar.setAttribute('class', 'white taggar');
+
+    if (globalAdmin) {
+        var redigera = document.createElement('a');
+        redigera.setAttribute('class', 'redigera');
+        redigera.innerHTML = 'redigera';
+        redigera.setAttribute('onclick', "navigateAdmin('" + kurskod + "','" + namn + "')");
+        taggar.appendChild(redigera);
+    }
     tr.appendChild(taggar);
 
     if (ok) {
@@ -268,6 +283,12 @@ function navigate(kurskod, namn) {
     localStorage.setItem("kursnamn", namn);
     localStorage.setItem("kurskod", kurskod);
     window.location.href = '/kurs?=' + kurskod;
+}
+
+function navigateAdmin(kurskod, namn) {
+    localStorage.setItem("kursnamn", namn);
+    localStorage.setItem("kurskod", kurskod);
+    window.location.href = '/admin?=' + kurskod;
 }
 
 var moreORless = -1;

@@ -14,6 +14,7 @@
 
 .cards-wrapper {
     margin-top: 40px;
+    text-align: center;
 }
 
 .square-card {
@@ -21,7 +22,7 @@
     width: 35%;
     min-width: 300px;
     height: 370px;
-    margin: 50px;
+    margin: 50px 50px 50px 20px;
     display: inline-block;
     vertical-align: middle;
 }

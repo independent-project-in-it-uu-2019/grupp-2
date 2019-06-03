@@ -3,6 +3,11 @@ var server = io();
 var selectedCourse = undefined;
 var searchResults = undefined;
 
+var kurskod = localStorage.getItem('kurskod');
+var kursnamn = localStorage.getItem('kursnamn');
+
+console.log(kurskod, kursnamn);
+
 var valdProgramkod = "alla";
 var valdLasar = "alla";
 var valdPeriod = "alla";
@@ -14,9 +19,14 @@ var showResults = false;
 $(document).ready(() => {
     if (selectedCourse) {
         $(".form").css('display', 'block');
-        $("#courseTitle").html(selectedCourse);
+        $("#courseTitle").html(kurskod + ' - ' + selectedCourse);
     }
     makeTags();
+
+    if (kurskod !=  "undefined") {
+        console.log(kurskod);
+        searchCourse(kursnamn, kurskod);
+    }
 });
 
 $('body').keypress(e => {
@@ -25,10 +35,14 @@ $('body').keypress(e => {
     }
 });
 
-function searchCourse() {
-    var modal = document.getElementById("modal");
-    let text = $('#searchBox').val();
+function searchCourse(text, kurskod) {
 
+    var modal = document.getElementById("modal");
+    if (text == undefined) {
+        text = $('#searchBox').val();
+        localStorage.setItem("kursnamn", "undefined");
+        localStorage.setItem("kurskod", "undefined");
+    }
     let searchObj = {
         text: text,
         noKursrapport: noKursrapport,
@@ -49,7 +63,13 @@ function searchCourse() {
             $(".search-results-wrapper").css('display', 'block');
 
             if (data != null) {
-                displayCourses(data);
+                if (kurskod == undefined) {
+                    displayCourses(data);
+                }
+                else {
+                    searchResults = data;
+                    selectCourse(kurskod);
+                }
             } else {
                 alert('Inga resultat!');
             }
@@ -67,7 +87,7 @@ function toggleResults(close) {
     
 
     if (!showResults) {
-        $(".search-results").css('max-height', '482px');
+        $(".search-results").css('max-height', '300px');
         $("#toggle").html('Göm sökresultat');
         $("#moreORless").css("transform", "rotate(-180deg)");
     } else {
@@ -134,6 +154,7 @@ function getPeriods(startvecka) {
 function selectCourse(course) {
     selectedCourse = searchResults[course].namn;
     $(".form").css('display', 'block');
+    clearAllTags();
     $("#courseTitle").html(course + ' - ' + selectedCourse);
 
     toggleResults();
@@ -155,6 +176,7 @@ function selectCourse(course) {
     }
 
     var selectPeriod = document.getElementById('period');
+    selectPeriod.innerHTML = "";
     for (let i = 0; i < periods.length; i++) {
         let o = document.createElement('option');
         o.setAttribute('value', periods[i]);
@@ -163,6 +185,7 @@ function selectCourse(course) {
     }
 
     var selectYear = document.getElementById('year');
+    selectYear.innerHTML = "";
     for (let i = 0; i < years.length; i++) {
         let o = document.createElement('option');
         o.setAttribute('value', years[i]);
