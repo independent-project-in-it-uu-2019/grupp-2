@@ -18,15 +18,32 @@
 .searchboxbox .taggar {
     border-radius: 4px;
     color: #666;
-    border: #bbb 1px solid;
+    border: #bbb 2px solid;
     padding: 5px 10px;
     display: inline-table;
     margin: 5px 5px 0 0;
 }
 
 .searchboxbox .taggar:hover {
-    background: #ddd;
     cursor: pointer;
+}
+.tag0:hover {
+    background: #39f3;
+}
+.tag1:hover {
+    background: #0fc3;
+}
+.tag2:hover {
+    background: #93f3;
+}
+.tag3:hover {
+    background: #9f33;
+}
+.tag4:hover {
+    background: #f393;
+}
+.tag5:hover {
+    background: #f933;
 }
 
 .searchbox .checkboxes {
@@ -179,6 +196,14 @@ td select.grey {
 
 .good {
     color: #11AE6B;
+}
+
+.tagg {
+    width: 10px;
+    height: 10px;
+    border-radius: 50%;
+    display: inline-block;
+    margin: 5px;
 }
 
 ::-webkit-scrollbar {

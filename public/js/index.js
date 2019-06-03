@@ -137,7 +137,7 @@ function getPeriods(startvecka) {
     }
     return periods.sort();
 }
-
+var superID = 0;
 function createRow(kurskod, namn, years, periods) {
     console.log(kurskod, namn, years, periods);
 
@@ -160,6 +160,7 @@ function createRow(kurskod, namn, years, periods) {
     if (periods.length > 1) {
         var selectPeriod = document.createElement('select');
         selectPeriod.setAttribute('class', 'grey');
+        selectPeriod.setAttribute('onchange', 'updateRow('+superID+',"'+kortNamn+'")');
         for (let i = 0; i < periods.length; i++) {
             let o = document.createElement('option');
             o.setAttribute('value', periods[i]);
@@ -178,6 +179,7 @@ function createRow(kurskod, namn, years, periods) {
 
     if (years.length > 1) {
         var selectYear = document.createElement('select');
+        selectYear.setAttribute('onchange', 'updateRow('+superID+',"'+kortNamn+'")');
         selectYear.setAttribute('class', 'white');
 
         for (let i = 0; i < years.length; i++) {
@@ -194,6 +196,7 @@ function createRow(kurskod, namn, years, periods) {
     tr.appendChild(year);
 
     var svar = document.createElement('td');
+    svar.setAttribute('id', 'svar'+superID);
     svar.setAttribute('class', 'grey center svar');
     svar.innerHTML = Math.floor(Math.random() * 100) + '%';
     tr.appendChild(svar);
@@ -201,7 +204,8 @@ function createRow(kurskod, namn, years, periods) {
     var ok = true;
 
     var kursvard = document.createElement('td');
-    var kursvardSaknas = Math.random() < 0.5;
+    kursvard.setAttribute('id', 'kursvard'+superID);
+    var kursvardSaknas = Math.random() < 0.3;
     if (kursvardSaknas) {
         kursvard.innerHTML = 'Saknas';
         kursvard.setAttribute('class', 'saknas-light');
@@ -215,7 +219,8 @@ function createRow(kurskod, namn, years, periods) {
     tr.appendChild(kursvard);
 
     var kursrapport = document.createElement('td');
-    var kursrapportSaknas = Math.random() < 0.2;
+    kursrapport.setAttribute('id', 'kursrapport'+superID);
+    var kursrapportSaknas = Math.random() < 0.3;
     if (kursrapportSaknas) {
         kursrapport.innerHTML = 'Saknas';
         kursrapport.setAttribute('class', 'saknas');
@@ -230,6 +235,7 @@ function createRow(kurskod, namn, years, periods) {
     tr.appendChild(kursrapport);
 
     var kursomdome = document.createElement('td');
+    kursomdome.setAttribute('id', 'kursomdome'+superID);
     var kursomdometSaknas = Math.random() < 0.2;
     let omdome = 0;
     if (kursomdometSaknas) {
@@ -249,6 +255,7 @@ function createRow(kurskod, namn, years, periods) {
     tr.appendChild(kursomdome);
 
     var godkandAndel = document.createElement('td');
+    godkandAndel.setAttribute('id', 'godkandAndel'+superID);
     var godkandAndelSaknas = Math.random() < 0.2;
     if (godkandAndelSaknas) {
         godkandAndel.innerHTML = 'Saknas';
@@ -260,7 +267,41 @@ function createRow(kurskod, namn, years, periods) {
     tr.appendChild(godkandAndel);
 
     var taggar = document.createElement('td');
+    taggar.setAttribute('id', 'taggar'+superID);
     taggar.setAttribute('class', 'white taggar');
+    
+    let r = Math.random();
+    var antalTaggar = 0;
+    if (r > 0.8) antalTaggar = 2;
+    else if (r > 0.4) antalTaggar = 1;
+    var firstColor = 'none';
+    var secondColor = 'none';
+    for (let i=0; i<antalTaggar; i++) {
+        let color = taggColor[Math.floor(Math.random()*6)];
+        while (color == firstColor) {
+            color = taggColor[Math.floor(Math.random()*6)];
+        }
+        var tagg = document.createElement('div');
+        tagg.setAttribute('style', 'background:'+color);
+        tagg.setAttribute('class', 'tagg');
+        taggar.appendChild(tagg);
+        if (firstColor == 'none')
+            firstColor = color;
+        else
+            secondColor = color;
+    }
+    if (filterTagg) {
+        var filterOk = false;
+        for (let i=0; i<6; i++) {
+            if (pressedTaggar[i] == 1) {
+                if (firstColor == taggColor[i] || secondColor == taggColor[i])
+                    filterOk = true;
+            }
+        }
+        if (filterOk == false) {
+            ok = false;
+        }
+    }
 
     if (globalAdmin) {
         var redigera = document.createElement('a');
@@ -276,6 +317,7 @@ function createRow(kurskod, namn, years, periods) {
         var spacer = document.createElement('tr');
         spacer.setAttribute('class', 'spacer');
         tbody.appendChild(spacer);
+        superID++;
     }
 }
 
@@ -305,4 +347,97 @@ function doAvancerat() {
         $(".searchbox").css("width", "500px")
     }
     moreORless = -moreORless;
+}
+
+var taggColor = ['#39f', '#0fc', '#93f', '#9f3', '#f39', '#f93'];
+var pressedTaggar = [0,0,0,0,0,0];
+var filterTagg = false;
+function doTagg(obj, c) {
+    let color = taggColor[c] + "5";
+    if (pressedTaggar[c] == 0) {
+        pressedTaggar[c] = 1;
+        $(obj).css("background", color);
+    } else {
+        pressedTaggar[c] = 0;
+        $(obj).css("background", "");
+    }
+    filterTagg = false;
+    for (let i=0; i<6; i++) {
+        if (pressedTaggar[i] == 1)
+            filterTagg = true;
+    }
+}
+
+function updateRow(id, kortNamn) {
+    $("#svar"+id).html(Math.floor(Math.random() * 100) + '%');
+    var kursvardSaknas = Math.random() < 0.3;
+    if (kursvardSaknas) {
+        $("#kursvard"+id).html('Saknas');
+        $("#kursvard"+id).addClass('saknas-light');
+    } else {
+        $("#kursvard"+id).html('<a href="http://mingodamat.se">Kursvärd_' + kortNamn + '.pdf</a>');
+        $("#kursvard"+id).removeClass('saknas-light');
+    }
+    var kursrapportSaknas = Math.random() < 0.3;
+    if (kursrapportSaknas) {
+        $("#kursrapport"+id).html('Saknas');
+        $("#kursrapport"+id).addClass('saknas');
+        $("#kursrapport"+id).removeClass('grey');
+    } else {
+        $("#kursrapport"+id).html('<a href="http://mingodamat.se">Kursrapport_' + kortNamn + '.pdf</a>');
+        $("#kursrapport"+id).removeClass('saknas');
+        $("#kursrapport"+id).addClass('grey');
+    }
+    var kursomdometSaknas = Math.random() < 0.2;
+    let omdome = 0;
+    if (kursomdometSaknas) {
+        $("#kursomdome"+id).html('Saknas');
+        $("#kursomdome"+id).removeClass('warning good white');
+        $("#kursomdome"+id).addClass('saknas-light center');
+    } else {
+        omdome = Math.floor(Math.random() * 50) / 10;
+        $("#kursomdome"+id).html(omdome);
+        $("#kursomdome"+id).removeClass('warning good saknas-light');
+
+        if (omdome < 2) $("#kursomdome"+id).addClass('warning center white');
+        else if (omdome >= 4) $("#kursomdome"+id).addClass('good center white');
+        else $("#kursomdome"+id).addClass('center white');
+    }
+    var godkandAndelSaknas = Math.random() < 0.2;
+    if (godkandAndelSaknas) {
+        $("#godkandAndel"+id).html('Saknas');
+        $("#godkandAndel"+id).addClass('saknas center godkandAndel');
+        $("#godkandAndel"+id).removeClass('grey');
+    } else {
+        $("#godkandAndel"+id).html(Math.floor(Math.random() * 100) + '%');
+        $("#godkandAndel"+id).addClass('grey center godkandAndel');
+        $("#godkandAndel"+id).removeClass('saknas');
+    }
+    let onclick = $("#taggar"+id + " a").attr("onclick");
+    var taggar = document.getElementById("taggar"+id);
+    taggar.innerHTML = "";
+    let r = Math.random();
+    var antalTaggar = 0;
+    if (r > 0.8) antalTaggar = 2;
+    else if (r > 0.4) antalTaggar = 1;
+    var firstColor = 'none';
+    for (let i=0; i<antalTaggar; i++) {
+        let color = taggColor[Math.floor(Math.random()*6)];
+        while (color == firstColor) {
+            color = taggColor[Math.floor(Math.random()*6)];
+        }
+        var tagg = document.createElement('div');
+        tagg.setAttribute('style', 'background:'+color);
+        tagg.setAttribute('class', 'tagg');
+        taggar.appendChild(tagg);
+        if (firstColor == 'none')
+            firstColor = color;
+    }
+    if (globalAdmin) {
+        var redigera = document.createElement('a');
+        redigera.setAttribute('class', 'redigera');
+        redigera.innerHTML = 'redigera';
+        redigera.setAttribute('onclick', onclick);
+        taggar.appendChild(redigera);
+    }
 }
